@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <%- include("partials/head") %>
+
+  </head>
+  <body>
+
+    <header>
+      <%- include("partials/header") %>
+    </header>
+
+    <main>
+      
+        <div class="container mt-5" style="max-width: 500px;">
+            <h2 class="mb-4 text-center">Iniciar sesión</h2>
+          
+            <% if (error) { %>
+              <div class="alert alert-danger"><%= error %></div>
+            <% } %>
+          
+            <form action="/login" method="POST">
+              <div class="mb-3">
+                <label for="username" class="form-label">Nombre de usuario</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+              </div>
+          
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+          
+              <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            </form>
+          </div>
+
+    </main>
+
+    <footer>
+      <%- include("partials/footer") %>
+    </footer>
+  </body>
+</html>
