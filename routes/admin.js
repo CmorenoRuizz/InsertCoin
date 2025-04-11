@@ -27,4 +27,16 @@ router.post('/admin/mensaje/:id/eliminar', soloAdmin, (req, res) => {
   });
 });
 
+router.post('/admin/mensaje/:id/responder', soloAdmin, (req, res) => {
+  const id = req.params.id;
+  const respuesta = req.body.respuesta;
+
+  const sql = 'UPDATE mensajes SET respuesta = ? WHERE id = ?';
+  db.query(sql, [respuesta, id], (err) => {
+    if (err) throw err;
+    res.redirect('/admin');
+  });
+});
+
+
 module.exports = router;

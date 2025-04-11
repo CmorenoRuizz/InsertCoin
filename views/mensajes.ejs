@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <%- include("partials/head") %>
+
+  </head>
+  <body>
+
+    <header>
+      <%- include("partials/header") %>
+    </header>
+
+    <main>
+      
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Tus mensajes</h2>
+          
+            <% if (mensajes.length === 0) { %>
+              <p class="text-center">Aún no has enviado mensajes.</p>
+            <% } else { %>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Mensaje</th>
+                      <th>Fecha</th>
+                      <th>Respuesta del administrador</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% mensajes.forEach(m => { %>
+                      <tr>
+                        <td><%= m.mensaje %></td>
+                        <td><%= m.fecha.toLocaleString() %></td>
+                        <td>
+                          <% if (m.respuesta) { %>
+                            <%= m.respuesta %>
+                          <% } else { %>
+                            <span class="text-muted">Sin respuesta aún</span>
+                          <% } %>
+                        </td>
+                      </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+              </div>
+            <% } %>
+          </div>
+
+    </main>
+
+    <footer>
+      <%- include("partials/footer") %>
+    </footer>
+  </body>
+</html>

@@ -23,8 +23,13 @@
             <form action="/contacto" method="POST">
               <div class="mb-3">
                 <label class="form-label">Nombre o usuario</label>
-                <input type="text" class="form-control" name="nombre" required>
+                <% if (user) { %>
+                  <input type="text" class="form-control" name="nombre" value="<%= user.username %>" readonly>
+                <% } else { %>
+                  <input type="text" class="form-control" name="nombre" required>
+                <% } %>
               </div>
+              
           
               <div class="mb-3">
                 <label class="form-label">Correo electrónico (opcional)</label>
