@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <%- include("partials/head") %>
+
+  </head>
+  <body>
+
+    <header>
+      <%- include("partials/header") %>
+    </header>
+
+    <main>
+      
+        <div class="container mt-5" style="max-width: 600px;">
+            <h2 class="mb-4 text-center">Contacto con el administrador</h2>
+          
+            <% if (success) { %>
+              <div class="alert alert-success"><%= success %></div>
+            <% } %>
+          
+            <form action="/contacto" method="POST">
+              <div class="mb-3">
+                <label class="form-label">Nombre o usuario</label>
+                <input type="text" class="form-control" name="nombre" required>
+              </div>
+          
+              <div class="mb-3">
+                <label class="form-label">Correo electrónico (opcional)</label>
+                <input type="email" class="form-control" name="email">
+              </div>
+          
+              <div class="mb-3">
+                <label class="form-label">Mensaje</label>
+                <textarea class="form-control" name="mensaje" rows="5" required></textarea>
+              </div>
+          
+              <button type="submit" class="btn btn-primary w-100">Enviar mensaje</button>
+            </form>
+          </div>
+
+    </main>
+
+    <footer>
+      <%- include("partials/footer") %>
+    </footer>
+  </body>
+</html>

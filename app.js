@@ -8,6 +8,8 @@ const session = require('express-session');
 var indexRouter = require('./routes/index');
 const arcadeRouter = require('./routes/arcade');
 const rankingRouter = require('./routes/ranking');
+const contactRouter = require('./routes/contact');
+const adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -43,6 +45,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/', arcadeRouter);
 app.use('/', rankingRouter);
+app.use('/', contactRouter);
+app.use('/', adminRouter);
 
 
 // catch 404 and forward to error handler
