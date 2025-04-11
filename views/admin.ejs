@@ -37,24 +37,39 @@
                       <td><%= m.email || '-' %></td>
                       <td><%= m.fecha.toLocaleString() %></td>
                       <td>
-                        <button class="btn btn-info btn-sm" data-mensaje="<%= m.mensaje.replace(/"/g, '&quot;') %>" onclick="verMensaje(this)">Ver</button>
+                        <button class="btn btn-info btn-sm" data-mensaje="<%= m.mensaje.replace(/"/g, '&quot;') %>" onclick="mostrarModal(this)">Ver</button>
+
+                      
                         <form action="/admin/mensaje/<%= m.id %>/eliminar" method="POST" class="d-inline">
                           <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                         </form>
-                      </td>
+                      </td>                      
                     </tr>
                   <% }) %>
                 </tbody>
               </table>
+              <dialog id="modalMensaje">
+                <h4>Mensaje completo</h4>
+                <p id="contenidoMensaje"></p>
+                <form method="dialog">
+                  <button class="btn btn-secondary">Cerrar</button>
+                </form>
+              </dialog>
+              
             <% } %>
           </div>
           
           <script>
-            function verMensaje(btn) {
-              const mensaje = btn.dataset.mensaje;
-              alert("Mensaje completo:\n\n" + mensaje);
+            function mostrarModal(btn) {
+              const texto = btn.dataset.mensaje;
+              const modal = document.getElementById('modalMensaje');
+              const contenido = document.getElementById('contenidoMensaje');
+              contenido.textContent = texto;
+              modal.showModal();
             }
           </script>
+          
+          
 
     </main>
 
