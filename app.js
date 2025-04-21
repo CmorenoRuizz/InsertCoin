@@ -10,6 +10,7 @@ const arcadeRouter = require('./routes/arcade');
 const rankingRouter = require('./routes/ranking');
 const contactRouter = require('./routes/contact');
 const adminRouter = require('./routes/admin');
+const configRouter = require('./routes/config');
 
 var app = express();
 
@@ -47,6 +48,7 @@ app.use('/', arcadeRouter);
 app.use('/', rankingRouter);
 app.use('/', contactRouter);
 app.use('/', adminRouter);
+app.use('/', configRouter);
 
 
 // catch 404 and forward to error handler

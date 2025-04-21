@@ -3,12 +3,23 @@ const router = express.Router();
 const db = require('../config/db');
 const path = require('path');
 
-router.get('/tetris', (req, res) => {
-    if (!req.session.user) {
-      return res.redirect('/login');
-    }
-    res.sendFile(path.join(__dirname, '../public/games/tetris/index.html'));
-  });
+// Middleware para proteger
+function soloUsuarios(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+  next();
+}
+
+// Ruta para mostrar el catálogo de juegos
+router.get('/juegos', soloUsuarios, (req, res) => {
+  res.render('juegos', { title: 'Juegos', user: req.session.user });
+});
+
+// Ruta para jugar al Tetris
+router.get('/juegos/tetris', soloUsuarios, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/games/tetris/index.html'));
+});
 
 // Guardar puntuación si es mejor que la anterior
 router.post('/guardar-puntuacion', (req, res) => {

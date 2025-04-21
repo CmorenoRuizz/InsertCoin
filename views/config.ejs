@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <%- include("partials/head") %>
+
+  </head>
+  <body>
+
+    <header>
+      <%- include("partials/header") %>
+    </header>
+
+    <main>   
+
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Editar perfil</h2>
+
+            <% if (success) { %>
+                <div class="alert alert-success text-center mb-4"><%= success %></div>
+            <% } %>
+              
+          
+            <form action="/config" method="POST" enctype="multipart/form-data" class="mx-auto" style="max-width: 500px;" autocomplete="off">
+              <div class="mb-3">
+                <label for="username" class="form-label">Nuevo nombre de usuario</label>
+                <input type="text" name="username" id="username" class="form-control" placeholder="<%= user.username %>" autocomplete="off">
+              </div>
+          
+              <div class="mb-3">
+                <label for="password" class="form-label">Nueva contraseña</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Dejar vacío si no quieres cambiarla" autocomplete="off">
+              </div>
+          
+              <div class="mb-3">
+                <label for="avatar" class="form-label">Nuevo avatar</label>
+                <input type="file" name="avatar" id="avatar" class="form-control" autocomplete="off">
+              </div>
+          
+              <button type="submit" class="btn btn-primary w-100">Guardar cambios</button>
+            </form>
+          </div>
+
+    </main>
+
+    <footer>
+      <%- include("partials/footer") %>
+    </footer>
+  </body>
+</html>
