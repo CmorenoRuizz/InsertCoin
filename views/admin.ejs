@@ -39,14 +39,17 @@
                       <td>
                         <button class="btn btn-info btn-sm" data-mensaje="<%= m.mensaje.replace(/"/g, '&quot;') %>" onclick="mostrarModal(this)">Ver</button>
 
-                        <button
-                          class="btn btn-warning btn-sm"
-                          data-id="<%= m.id %>"
-                          data-mensaje="<%= m.mensaje.replace(/"/g, '&quot;') %>"
-                          data-respuesta="<%= m.respuesta ? m.respuesta.replace(/"/g, '&quot;') : '' %>"
-                          onclick="abrirFormularioRespuesta(this)"
-                        >Responder
-                        </button>
+                        <% if (m.user_id) { %>
+                          <button
+                            class="btn btn-warning btn-sm"
+                            data-id="<%= m.id %>"
+                            data-mensaje="<%= m.mensaje.replace(/"/g, '&quot;') %>"
+                            data-respuesta="<%= m.respuesta ? m.respuesta.replace(/"/g, '&quot;') : '' %>"
+                            onclick="abrirFormularioRespuesta(this)"
+                          >
+                            Responder
+                          </button>
+                        <% } %>
 
                         <form action="/admin/mensaje/<%= m.id %>/eliminar" method="POST" class="d-inline">
                           <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
