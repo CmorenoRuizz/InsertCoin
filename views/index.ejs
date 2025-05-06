@@ -3,6 +3,7 @@
   <head>
 
     <%- include("partials/head") %>
+    
 
   </head>
   <body>
@@ -11,18 +12,21 @@
       <%- include("partials/header") %>
     </header>
 
-      <main>
-        <p>InsertCoin</p>
-      </main>
+    <main class="text-center mt-5">
+      <h1 id="titulo-animado" class="display-4">InsertCoin</h1>
+      <p id="subtitulo" class="lead">Bienvenido a tu salón arcade web</p>
+    </main>
+    
 
-      <section>
-        <!-- El widget de chat se incluirá desde el footer según el rol del usuario -->
-      </section>
-
-
+      
       <footer>
         <%- include("partials/footer") %>
       </footer>
+      
+      <script>
+        gsap.from("#titulo-animado", { duration: 1.5, y: -100, opacity: 0, ease: "bounce.out" });
+        gsap.from("#subtitulo", { duration: 1, delay: 0.5, y: 50, opacity: 0 });
+      </script>
       
   </body>
 </html>
