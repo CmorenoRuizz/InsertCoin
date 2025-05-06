@@ -6,14 +6,25 @@
       Chat Admin
       <button type="button" class="btn-close float-end btn-sm" aria-label="Cerrar" onclick="document.getElementById('admin-chat-box').style.display='none'"></button>
     </div>
+    
+    <div class="p-2 border-bottom">
+      <select id="selector-usuario-chat" class="form-select form-select-sm">
+        <option value="">Seleccionar usuario...</option>
+      </select>
+    </div>
+    
     <div class="card-body" id="admin-chat-mensajes" style="height: 200px; overflow-y: auto;">
       <!-- Aquí se agregarán mensajes -->
+      <div class="text-center text-muted my-3">
+        Selecciona un usuario para ver la conversación
+      </div>
     </div>
+    
     <div class="card-footer p-2">
       <form id="form-chat-admin">
         <div class="input-group">
-          <input type="text" id="input-chat-admin" class="form-control" placeholder="Responder...">
-          <button class="btn btn-danger" type="submit">Enviar</button>
+          <input type="text" id="input-chat-admin" class="form-control" placeholder="Responder..." disabled>
+          <button class="btn btn-danger" type="submit" disabled>Enviar</button>
         </div>
       </form>
     </div>

@@ -2,19 +2,98 @@
 const db = require('../config/db');
 
 function setupSocket(io) {
-  io.on('connection', (socket) => {
-    // Reducimos los logs en la terminal
-    // console.log('🟢 Nuevo cliente conectado al chat');
+  // Crear la columna destinatario_id si no existe
+  db.query(`SHOW COLUMNS FROM mensajes_chat LIKE 'destinatario_id'`, (err, result) => {
+    if (err) {
+      console.error('Error al consultar la estructura de la tabla:', err);
+      return;
+    }
     
-    // Acceder a la sesión a través de socket.handshake
-    // console.log('Sesión disponible:', !!socket.handshake.session);
-    // console.log('Usuario en sesión:', socket.handshake.session.user ? 
-    //   `ID: ${socket.handshake.session.user.id}` : 'No hay usuario');
+    if (result.length === 0) {
+      db.query(`ALTER TABLE mensajes_chat ADD destinatario_id INT DEFAULT NULL AFTER remitente_id`, (err) => {
+        if (err) {
+          console.error('Error al añadir columna destinatario_id:', err);
+        } else {
+          console.log('Columna destinatario_id añadida correctamente');
+        }
+      });
+    }
+  });
 
-    socket.on('mensaje_usuario', data => {
-      // Verificar si hay sesión y usuario
+  io.on('connection', (socket) => {
+    // Cargar mensajes para un usuario específico
+    socket.on('cargar_mensajes', data => {
       if (!socket.handshake.session || !socket.handshake.session.user) {
-        // console.log('❌ Error: No hay sesión de usuario al enviar mensaje');
+        return;
+      }
+
+      const currentUser = socket.handshake.session.user;
+      const userId = currentUser.id;
+      const esAdmin = currentUser.rol === 'admin';
+      let sql;
+      let params;
+      
+      if (esAdmin && data.otroUsuarioId) {
+        // Si es admin y solicita mensajes con un usuario específico
+        sql = `
+          SELECT m.*, u.username 
+          FROM mensajes_chat m 
+          JOIN usuarios u ON m.remitente_id = u.id 
+          WHERE (m.remitente_id = ? AND m.destinatario_id = ?) 
+             OR (m.remitente_id = ? AND m.destinatario_id = ?)
+          ORDER BY m.fecha ASC
+        `;
+        params = [userId, data.otroUsuarioId, data.otroUsuarioId, userId];
+      } else if (!esAdmin) {
+        // Si es usuario normal, solo carga mensajes entre él y cualquier administrador
+        sql = `
+          SELECT m.*, u.username 
+          FROM mensajes_chat m 
+          JOIN usuarios u ON m.remitente_id = u.id 
+          WHERE (m.remitente_id = ? AND m.tipo = 'user') 
+             OR (m.destinatario_id = ? AND m.tipo = 'admin')
+          ORDER BY m.fecha ASC
+        `;
+        params = [userId, userId];
+      } else {
+        // Admin sin usuario seleccionado, no enviar nada
+        return;
+      }
+      
+      db.query(sql, params, (err, mensajes) => {
+        if (err) {
+          console.error('Error al cargar mensajes:', err);
+        } else {
+          socket.emit('historial_mensajes', { mensajes });
+        }
+      });
+    });
+    
+    // Obtener lista de usuarios para el admin
+    socket.on('obtener_usuarios_chat', () => {
+      if (!socket.handshake.session?.user || socket.handshake.session.user.rol !== 'admin') {
+        return;
+      }
+      
+      // Encontrar usuarios con los que el admin ha tenido conversaciones
+      db.query(`
+        SELECT DISTINCT u.id, u.username, u.avatar
+        FROM usuarios u 
+        JOIN mensajes_chat m ON u.id = m.remitente_id OR u.id = m.destinatario_id
+        WHERE u.rol = 'user'
+        ORDER BY u.username
+      `, (err, usuarios) => {
+        if (err) {
+          console.error('Error al obtener usuarios:', err);
+        } else {
+          socket.emit('lista_usuarios_chat', { usuarios });
+        }
+      });
+    });
+
+    // Cuando un usuario envía un mensaje
+    socket.on('mensaje_usuario', data => {
+      if (!socket.handshake.session || !socket.handshake.session.user) {
         return;
       }
 
@@ -22,52 +101,69 @@ function setupSocket(io) {
       const userId = socket.handshake.session.user.id;
       const username = socket.handshake.session.user.username || 'Usuario';
       
-      // console.log(`💬 Recibido mensaje de usuario ${userId}: ${mensaje}`);
-
-      const sql = 'INSERT INTO mensajes_chat (remitente_id, mensaje, tipo) VALUES (?, ?, ?)';
-      db.query(sql, [userId, mensaje, 'user'], (err, result) => {
-        if (err) {
-          console.error('Error al guardar mensaje de usuario.');
-        } else {
-          // console.log('💾 Mensaje guardado en DB con ID:', result.insertId);
-          
-          // Emitir el mensaje a todos los clientes
-          io.emit('nuevo_mensaje', {
-            username: username,
-            mensaje,
-            tipo: 'user'
-          });
+      // Buscar un administrador para enviarle el mensaje
+      db.query('SELECT id FROM usuarios WHERE rol = "admin" LIMIT 1', (err, adminResult) => {
+        if (err || adminResult.length === 0) {
+          console.error('Error al encontrar administrador:', err);
+          return;
         }
+        
+        const adminId = adminResult[0].id;
+        
+        // Guardar mensaje con destinatario
+        const sql = 'INSERT INTO mensajes_chat (remitente_id, destinatario_id, mensaje, tipo) VALUES (?, ?, ?, ?)';
+        db.query(sql, [userId, adminId, mensaje, 'user'], (err, result) => {
+          if (err) {
+            console.error('Error al guardar mensaje de usuario:', err);
+          } else {
+            // Emitir el mensaje a todos los administradores
+            io.emit('nuevo_mensaje', {
+              id: result.insertId,
+              remitente_id: userId,
+              destinatario_id: adminId,
+              username: username,
+              mensaje,
+              tipo: 'user',
+              fecha: new Date()
+            });
+          }
+        });
       });
     });
 
     // Cuando el admin responde desde su widget
     socket.on('mensaje_admin', data => {
-      if (!socket.handshake.session || !socket.handshake.session.user || 
-          socket.handshake.session.user.rol !== 'admin') {
-        // console.log('❌ Error: No hay sesión de admin al enviar mensaje');
+      if (!socket.handshake.session?.user || socket.handshake.session.user.rol !== 'admin') {
         return;
       }
       
       const mensaje = data.mensaje;
       const userId = socket.handshake.session.user.id;
       const username = socket.handshake.session.user.username || 'Admin';
+      const destinatarioId = data.destinatarioId;
       
-      // console.log(`👑 Recibido mensaje de admin ${userId}: ${mensaje}`);
+      if (!destinatarioId) {
+        console.error('Error: No se especificó destinatario para el mensaje del admin');
+        return;
+      }
       
-      const sql = 'INSERT INTO mensajes_chat (remitente_id, mensaje, tipo) VALUES (?, ?, ?)';
-      db.query(sql, [userId, mensaje, 'admin'], (err, result) => {
+      const sql = 'INSERT INTO mensajes_chat (remitente_id, destinatario_id, mensaje, tipo) VALUES (?, ?, ?, ?)';
+      db.query(sql, [userId, destinatarioId, mensaje, 'admin'], (err, result) => {
         if (err) {
-          console.error('Error al guardar mensaje del administrador.');
+          console.error('Error al guardar mensaje del admin:', err);
         } else {
-          // console.log('💾 Respuesta del admin guardada con ID:', result.insertId);
-
-          // Enviar mensaje a todos los usuarios conectados
-          io.emit('nuevo_mensaje', {
+          const nuevoMensaje = {
+            id: result.insertId,
+            remitente_id: userId,
+            destinatario_id: destinatarioId,
             username: username,
             mensaje,
-            tipo: 'admin'
-          });
+            tipo: 'admin',
+            fecha: new Date()
+          };
+          
+          // Emitir a todos para que el destinatario reciba el mensaje si está conectado
+          io.emit('nuevo_mensaje', nuevoMensaje);
         }
       });
     });

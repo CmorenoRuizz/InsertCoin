@@ -46,4 +46,9 @@
   
     </div>
   </nav>
-  
+
+<% if (user) { %>
+<script>
+  document.body.setAttribute('data-user-id', '<%= user.id %>');
+</script>
+<% } %>
