@@ -1,6 +1,22 @@
+<% if (user) { %>
+  <% if (user.rol === 'admin') { %>
+    <%- include("admin_chat") %>
+    <script src="/javascripts/admin_chat.js"></script>
+  <% } else if (user.rol === 'user') { %>
+    <%- include("chat") %>
+    <script src="/javascripts/chat.js"></script>
+  <% } %>
+<% } %>
+  
 <div class="bg-dark text-white text-center py-3 mt-5">
-    <p class="mb-0">Footer temporal</p>
+  <p class="mb-0">Footer temporal</p>
 </div>
-
-<!-- añadir aquí scripts de frameworks y personalizados -->
+  
 <script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io({ transports: ['polling'] });
+  socket.on('connect', () => {
+    console.log('✅ Conectado al servidor Socket.IO');
+  });
+</script>

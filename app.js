@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
+const sharedsession = require('express-socket.io-session'); // Nueva importación
 
 var indexRouter = require('./routes/index');
 const arcadeRouter = require('./routes/arcade');
@@ -14,13 +15,18 @@ const configRouter = require('./routes/config');
 
 var app = express();
 
-
-app.use(session({
+// Configuración de session antes de crear el servidor HTTP
+const sessionMiddleware = session({
   secret: '2A25122DA6116',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false } 
-}));
+  resave: true,
+  saveUninitialized: true,
+  cookie: { 
+    secure: false,
+    maxAge: 24 * 60 * 60 * 1000 // 24 horas
+  }
+});
+
+app.use(sessionMiddleware);
 
 //Middleware global
 app.use((req, res, next) => {
@@ -28,14 +34,12 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
-
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -49,7 +53,6 @@ app.use('/', rankingRouter);
 app.use('/', contactRouter);
 app.use('/', adminRouter);
 app.use('/', configRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -67,4 +70,21 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+// Crear servidor HTTP después de configurar Express
+const http = require('http');
+const server = http.createServer(app);
+
+// Configurar Socket.IO para usar la misma sesión
+const { Server } = require('socket.io');
+const io = new Server(server);
+
+// Compartir la sesión con Socket.IO usando la biblioteca especializada
+io.use(sharedsession(sessionMiddleware, {
+  autoSave: true
+}));
+
+const setupSocket = require('./routes/socket');
+setupSocket(io);
+
+module.exports = { app, server };
+

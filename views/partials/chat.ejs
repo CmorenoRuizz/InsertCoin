@@ -1,0 +1,21 @@
+<div id="chat-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+  <button id="abrir-chat" class="btn btn-primary rounded-circle" style="width: 60px; height: 60px;">💬</button>
+
+  <div id="chat-box" class="card shadow" style="width: 300px; display: none;">
+    <div class="card-header bg-primary text-white">
+      Chat con el administrador
+      <button type="button" class="btn-close float-end btn-sm" aria-label="Cerrar" onclick="document.getElementById('chat-box').style.display='none'"></button>
+    </div>
+    <div class="card-body" id="chat-mensajes" style="height: 200px; overflow-y: auto;">
+      <!-- Aquí se agregan los mensajes -->
+    </div>
+    <div class="card-footer p-2">
+      <form id="form-chat">
+        <div class="input-group">
+          <input type="text" id="input-chat" class="form-control" placeholder="Escribe tu mensaje...">
+          <button class="btn btn-primary" type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
