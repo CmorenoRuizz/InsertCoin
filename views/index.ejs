@@ -12,21 +12,17 @@
       <%- include("partials/header") %>
     </header>
 
-    <main class="text-center mt-5">
-      <h1 id="titulo-animado" class="display-4">InsertCoin</h1>
-      <p id="subtitulo" class="lead">Bienvenido a tu salón arcade web</p>
+    <main class="text-center d-flex flex-column justify-content-center align-items-center" style="min-height: 80vh">
+      <img src="/images/logo.png" alt="Logo InsertCoin" id="logo-animado" class="logo-insertcoin">
+      <h1 id="titulo-animado" class="display-3 fw-bold title-insertcoin">InsertCoin</h1>
+      <p id="subtitulo" class="lead subtitle-insertcoin">Bienvenido a tu salón arcade web</p>
+      <div id="mensaje-animado" class="rotating-message"></div>
+
     </main>
     
-
-      
-      <footer>
+           
         <%- include("partials/footer") %>
-      </footer>
-      
-      <script>
-        gsap.from("#titulo-animado", { duration: 1.5, y: -100, opacity: 0, ease: "bounce.out" });
-        gsap.from("#subtitulo", { duration: 1, delay: 0.5, y: 50, opacity: 0 });
-      </script>
-      
+            
+      <script src="/javascripts/indexAnimations.js"></script>
   </body>
 </html>

@@ -1,21 +1,30 @@
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark px-4 py-2">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-  
-      <div class="d-flex gap-3">
-        <a class="nav-link text-white" href="/">Inicio</a>
-        <a class="nav-link text-white" href="/juegos">Juegos</a>
-        <a class="nav-link text-white" href="/ranking">Ranking</a>
-        <a class="nav-link text-white" href="/contacto">Contacto</a>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-insertcoin">
+  <div class="container-fluid">
+
+    <a class="navbar-brand d-lg-none" href="#">
+      <img src="/images/logo.png" alt="InsertCoin" class="logo-center">
+    </a>
+
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarContenido">
+
+      <!-- Enlaces -->
+      <div class="navbar-nav gap-3">
+        <a class="nav-link" href="/">Inicio</a>
+        <a class="nav-link" href="/juegos">Juegos</a>
+        <a class="nav-link" href="/ranking">Ranking</a>
+        <a class="nav-link" href="/contacto">Contacto</a>
       </div>
-  
-      <div>
-        <img src="/images/logo.png" alt="InsertCoin" style="height: 50px;">
-      </div>
-  
-      <div class="dropdown">
+
+      <!-- Botón de usuario -->
+      <div class="dropdown mt-3 mt-lg-0">
         <% if (user) { %>
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="<%= user.avatar %>" alt="Avatar" class="rounded-circle me-2" style="width: 30px; height: 30px;">
+          <a class="btn btn-usuario dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="<%= user.avatar %>" alt="Avatar" class="user-avatar">
             <%= user.username %>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -23,19 +32,16 @@
               <li><a class="dropdown-item" href="/admin">Panel de administración</a></li>
               <li><hr class="dropdown-divider"></li>
             <% } %>
-
             <% if (user.rol === 'user') { %>
               <li><a class="dropdown-item" href="/mensajes">Mensajes</a></li>
               <li><hr class="dropdown-divider"></li>
             <% } %>
-            
-
             <li><a class="dropdown-item" href="/config">Editar perfil</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item text-danger" href="/logout">Cerrar sesión</a></li>
           </ul>
         <% } else { %>
-          <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="btn btn-bienvenido dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Bienvenido
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -43,12 +49,7 @@
           </ul>
         <% } %>
       </div>
-  
-    </div>
-  </nav>
 
-<% if (user) { %>
-<script>
-  document.body.setAttribute('data-user-id', '<%= user.id %>');
-</script>
-<% } %>
+    </div>
+  </div>
+</nav>

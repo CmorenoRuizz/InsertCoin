@@ -1,0 +1,101 @@
+.navbar-insertcoin {
+    background-color: var(--color-bg-header-footer);
+    padding: 0.75rem 2rem;
+  }
+  
+  .navbar-insertcoin .nav-link {
+    color: var(--color-text-primary);
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .navbar-insertcoin .nav-link:hover {
+    color: var(--color-accent);
+  }
+  
+  .navbar-insertcoin .navbar-brand img,
+  .navbar-insertcoin .logo-center {
+    height: 50px;
+  }
+  
+  .navbar-insertcoin .user-avatar {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+  }
+  
+
+  /* Botón para usuarios NO logeados (btn-outline-light personalizado) */
+.btn-bienvenido {
+  border: 1px solid var(--color-accent);
+  color: var(--color-text-primary);
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-bienvenido:hover {
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+/* Botón para usuarios logeados (btn-secondary personalizado) */
+.btn-usuario {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-accent);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-usuario:hover {
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+
+/* === Dropdown personalizado === */
+.dropdown-menu {
+  background-color: var(--color-bg-header-footer);
+  border: 1px solid var(--color-accent) !important;
+  box-shadow: none !important;
+  padding: 0.25rem 0;
+}
+
+.dropdown-menu .dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  background-color: var(--color-bg-header-footer);
+  border: none;
+  
+  line-height: 1.5;
+  transition: background-color 0.3s, color 0.3s;
+  box-sizing: border-box;
+}
+
+
+.dropdown-divider {
+  border-color: var(--color-accent);
+}
+
+.btn-usuario:focus,
+.btn-bienvenido:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid var(--color-accent);
+}
+
+
+@media (max-width: 991.98px) {
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .dropdown-menu {
+    margin-top: 0.5rem;
+  }
+}

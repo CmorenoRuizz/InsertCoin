@@ -1,0 +1,31 @@
+.main-home {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo-insertcoin {
+    width: 120px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .title-insertcoin {
+    color: var(--color-accent);
+    font-family: var(--font-arcade);
+  }
+  
+  .subtitle-insertcoin {
+    margin-top: 1rem;
+  }
+  
+  .rotating-message {
+    margin-top: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    height: 2.5rem;
+    color: var(--color-accent);
+    font-family: var(--font-arcade);
+  }
+  
