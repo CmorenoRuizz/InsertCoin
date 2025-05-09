@@ -29,3 +29,40 @@
     font-family: var(--font-arcade);
   }
   
+
+  /* css para aviso del móvil */
+
+  .aviso-movil {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-accent);
+    color: var(--color-bg-header-footer);
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    z-index: 9999;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.4);
+  }
+  
+  .aviso-movil .btn-ok {
+    margin-left: 1rem;
+    background-color: var(--color-bg-header-footer);
+    color: var(--color-accent);
+    border: none;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+  
+  .aviso-movil .btn-ok:hover {
+    background-color: #111;
+  }
+  
+  /* Oculto por defecto, se activa con JS */
+  .d-none {
+    display: none !important;
+  }
+  
