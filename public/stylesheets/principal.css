@@ -30,6 +30,24 @@
   }
   
 
+  .text-accent {
+    color: var(--color-accent);
+  }
+
+  .btn-accent {
+    background-color: var(--color-accent);
+    color: var(--color-bg-header-footer);
+    border: none;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .btn-accent:hover {
+    background-color: #e69500;
+    color: var(--color-bg-header-footer);
+  }
+
+
+
   /* css para aviso del móvil */
 
   .aviso-movil {
