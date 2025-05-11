@@ -5,5 +5,6 @@
     --color-bg-header-footer: #000000;
     --color-bg-chat: #14172b;
     --font-arcade: 'Press Start 2P', cursive;
+    --header-height: 72px; /* Altura aproximada del header (logo + padding) */
   }
   

@@ -1,0 +1,101 @@
+/* 
+ * auth.css - Estilos para las páginas de autenticación de InsertCoin
+ * Incluye estilos para login y registro
+ */
+
+.auth-container {
+  padding: 2rem 0;
+  min-height: calc(100vh - var(--header-height, 72px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-form-container {
+  background-color: rgba(20, 23, 43, 0.8);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.auth-form-title {
+  font-family: var(--font-arcade);
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.auth-form .form-label {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.auth-form .form-control {
+  background-color: var(--color-bg-chat);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-accent);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.auth-form .form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 165, 0, 0.25);
+  border-color: var(--color-accent);
+}
+
+.auth-form .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.auth-btn {
+  background-color: var(--color-accent);
+  color: var(--color-bg-header-footer);
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+  background-color: var(--color-accent);
+  color: var(--color-bg-header-footer);
+}
+
+.auth-logo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.auth-logo img {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.auth-message {
+  font-family: var(--font-arcade);
+  text-align: center;
+  font-size: 1.25rem;
+  color: var(--color-text-primary);
+  margin: 1.5rem 0;
+  min-height: 3rem;
+}
+
+/* Estilos para responsive */
+@media (max-width: 767.98px) {
+  .auth-form-container {
+    padding: 1.5rem;
+  }
+  
+  .auth-logo {
+    margin-top: 2rem;
+  }
+  
+  .auth-container {    
+    padding: 3rem 0;
+  }
+}
