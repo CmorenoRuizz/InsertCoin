@@ -2,6 +2,7 @@
 @import url(principal.css);
 @import url(header.css);
 @import url(footer.css);
+@import url(sala.css);
 
 html,body {
   height: 100%;

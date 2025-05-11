@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("partials/head") %>
+    <link rel='stylesheet' href='/stylesheets/sala.css' />
+  </head>  <body data-user-id="<%= user.id %>" data-username="<%= user.username %>">
+    <header><%- include("partials/header") %></header>
+
+    <main class="container mt-5">
+      <h2 class="text-center mb-4">Chat en vivo</h2>
+      
+      <div class="sala-chat-container">
+        <div id="sala-chat-mensajes" class="sala-chat-mensajes">
+          <div class="text-center mt-3 mb-3">
+            <div class="spinner-border text-light" role="status">
+              <span class="visually-hidden">Cargando mensajes...</span>
+            </div>
+            <p class="mt-2">Conectando al chat...</p>
+          </div>
+        </div>
+        
+        <form id="form-sala-chat" class="sala-chat-form">
+          <div class="input-group">
+            <input 
+              type="text" 
+              id="input-sala-chat" 
+              class="form-control" 
+              placeholder="Escribe tu mensaje..." 
+              autocomplete="off"
+              maxlength="500">
+            <button class="btn btn-accent" type="submit">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer><%- include("partials/footer") %></footer>
+    
+    <script src="/javascripts/sala.js"></script>
+  </body>
+</html>

@@ -1,8 +1,7 @@
 // socket.js
 const db = require('../config/db');
 
-function setupSocket(io) {
-  // Crear la columna destinatario_id si no existe
+function setupSocket(io) {  // Crear la columna destinatario_id si no existe
   db.query(`SHOW COLUMNS FROM mensajes_chat LIKE 'destinatario_id'`, (err, result) => {
     if (err) {
       console.error('Error al consultar la estructura de la tabla:', err);
@@ -19,9 +18,76 @@ function setupSocket(io) {
       });
     }
   });
-
   io.on('connection', (socket) => {
-    // Cargar mensajes para un usuario específico
+    // Cargar mensajes del chat de sala pública
+    socket.on('cargar_mensajes_sala', () => {
+      // Verificar que el usuario esté autenticado
+      if (!socket.handshake.session || !socket.handshake.session.user) {
+        return;
+      }
+
+      // Consultar los últimos 50 mensajes de la sala ordenados por fecha
+      const sql = `
+        SELECT cs.id, cs.mensaje, cs.fecha, u.id AS usuario_id, u.username, u.avatar
+        FROM chat_sala cs
+        JOIN usuarios u ON cs.remitente_id = u.id
+        ORDER BY cs.fecha DESC
+        LIMIT 50
+      `;
+
+      db.query(sql, (err, mensajes) => {
+        if (err) {
+          console.error('Error al cargar mensajes de sala:', err);
+        } else {
+          // Invertir para mostrar en orden cronológico (del más antiguo al más reciente)
+          socket.emit('historial_sala', mensajes.reverse());
+        }
+      });
+    });
+
+    // Manejar nuevo mensaje en la sala pública
+    socket.on('nuevo_mensaje_sala', data => {
+      if (!socket.handshake.session || !socket.handshake.session.user) {
+        return;
+      }
+
+      const userId = socket.handshake.session.user.id;
+      const mensaje = data.mensaje;
+
+      // Escape HTML para prevenir XSS
+      const mensajeSeguro = mensaje
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+      // Guardar el mensaje en la base de datos
+      const sql = 'INSERT INTO chat_sala (remitente_id, mensaje) VALUES (?, ?)';
+      db.query(sql, [userId, mensajeSeguro], (err, result) => {
+        if (err) {
+          console.error('Error al guardar mensaje en sala:', err);
+        } else {
+          // Obtener información completa del usuario
+          db.query('SELECT id, username, avatar FROM usuarios WHERE id = ?', [userId], (err, users) => {
+            if (err || !users.length) {
+              console.error('Error al obtener datos del usuario:', err);
+              return;
+            }
+
+            const user = users[0];
+            // Emitir el mensaje a todos los usuarios conectados
+            io.emit('mensaje_sala', {
+              id: result.insertId,
+              mensaje: mensajeSeguro,
+              fecha: new Date(),
+              usuario_id: user.id,
+              username: user.username,
+              avatar: user.avatar || '/images/default-avatar.png'
+            });
+          });
+        }
+      });
+    });
+
+    // Cargar mensajes para un usuario específico (chat privado)
     socket.on('cargar_mensajes', data => {
       if (!socket.handshake.session || !socket.handshake.session.user) {
         return;

@@ -12,6 +12,7 @@ const rankingRouter = require('./routes/ranking');
 const contactRouter = require('./routes/contact');
 const adminRouter = require('./routes/admin');
 const configRouter = require('./routes/config');
+const salaRouter = require('./routes/sala');
 
 var app = express();
 
@@ -53,6 +54,7 @@ app.use('/', rankingRouter);
 app.use('/', contactRouter);
 app.use('/', adminRouter);
 app.use('/', configRouter);
+app.use('/', salaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
