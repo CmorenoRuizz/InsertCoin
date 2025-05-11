@@ -35,7 +35,7 @@ Bienvenido a **InsertCoin**, tu salón arcade web con minijuegos, ranking de pun
 
 1. Clonar el repositorio:
    
-   git clone https://github.com/tu-usuario/InsertCoin.git
+   git clone https://github.com/CmorenoRuizz/InsertCoin.git
    
 2. Instalar las dependencias si fuese necesario:
    
