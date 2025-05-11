@@ -1,0 +1,229 @@
+/* 
+ * chat.css - Estilos para los widgets de chat de InsertCoin
+ * Incluye estilos para el chat de usuario normal y el chat de administrador
+ */
+
+/* Estilos compartidos para los widgets de chat */
+#chat-widget,
+#admin-chat-widget {
+  position: fixed;
+  bottom: 80px; /* Aumentado para evitar superposición con el footer */
+  right: 30px;
+  z-index: 9999;
+}
+
+/* Estilos para el botón de chat */
+.chat-btn,
+.admin-chat-btn {
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+  transition: all 0.3s ease;
+}
+
+.chat-btn:hover,
+.admin-chat-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 165, 0, 0.5);
+  background-color: var(--color-accent);
+}
+
+/* Estilos de la caja de chat */
+#chat-box,
+#admin-chat-box {
+  width: 320px;
+  display: none;
+  background-color: var(--color-bg-chat);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Estilos del encabezado del chat */
+#chat-box .card-header,
+#admin-chat-box .card-header {
+  background-color: var(--color-accent);
+  color: var(--color-bg-header-footer);
+}
+
+/* Estilo para el botón de cierre */
+.chat-close-btn {
+  filter: brightness(0) invert(1);
+}
+
+/* Estilos del cuerpo de mensajes */
+#chat-mensajes,
+#admin-chat-mensajes {
+  height: 300px;
+  overflow-y: auto;
+  background-color: var(--color-bg-chat);
+  padding: 12px;
+}
+
+/* Ajuste de altura para el panel de administrador */
+#admin-chat-mensajes {
+  height: 250px;
+}
+
+/* Estilos del pie de chat */
+#chat-box .card-footer,
+#admin-chat-box .card-footer {
+  background-color: var(--color-bg-chat);
+  border-top: 1px solid #22253a;
+  padding: 0.5rem;
+}
+
+/* Selector de usuario para admin */
+.admin-select-container {
+  background-color: var(--color-bg-chat);
+  border-bottom: 1px solid #22253a;
+  padding: 0.5rem;
+}
+
+/* Estilos para la barra de desplazamiento */
+#chat-mensajes::-webkit-scrollbar,
+#admin-chat-mensajes::-webkit-scrollbar {
+  width: 6px;
+}
+
+#chat-mensajes::-webkit-scrollbar-thumb,
+#admin-chat-mensajes::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent);
+  border-radius: 6px;
+}
+
+#chat-mensajes::-webkit-scrollbar-track,
+#admin-chat-mensajes::-webkit-scrollbar-track {
+  background-color: var(--color-bg-chat);
+}
+
+/* Estilos de mensajes */
+.mensaje-usuario,
+.mensaje-admin {
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  max-width: 80%;
+  word-break: break-word;
+}
+
+.mensaje-usuario {
+  background-color: var(--color-accent);
+  color: var(--color-bg-header-footer);
+  margin-left: auto;
+  margin-right: 0;
+  text-align: right;
+}
+
+.mensaje-admin {
+  background-color: #1c1c1e;
+  color: var(--color-text-primary);
+  margin-right: auto;
+  margin-left: 0;
+  text-align: left;
+}
+
+.mensaje-usuario strong,
+.mensaje-admin strong {
+  display: block;
+  font-size: 0.85em;
+  margin-bottom: 4px;
+  opacity: 0.9;
+}
+
+/* Estilos para la animación de mensajes */
+.mensaje-usuario,
+.mensaje-admin {
+  transition: all 0.2s ease;
+}
+
+/* Clase para animación de entrada de mensajes nuevos */
+.mensaje-nuevo {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Estilos para el contenido de los mensajes */
+.mensaje-contenido {
+  margin-top: 4px;
+  word-break: break-word;
+}
+
+/* Estilos para los inputs del chat */
+.chat-input,
+.admin-chat-input {
+  border-radius: 20px 0 0 20px;
+  border: 2px solid var(--color-accent);
+  background-color: var(--color-bg-chat);
+  color: var(--color-text-primary);
+  transition: all 0.2s ease-in-out;
+  box-shadow: none;
+}
+
+.chat-input:hover,
+.chat-input:focus,
+.chat-input:active,
+.admin-chat-input:hover, 
+.admin-chat-input:focus, 
+.admin-chat-input:active,
+.admin-chat-input:disabled {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 0.15rem rgba(255, 165, 0, 0.25);
+  outline: none;
+}
+
+.chat-input::placeholder,
+.admin-chat-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Estilos para el botón de enviar */
+.btn-enviar-chat {
+  background-color: var(--color-accent);
+  color: var(--color-bg-header-footer);
+  border-radius: 0 20px 20px 0;
+  font-weight: 500;
+}
+
+.btn-enviar-chat:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg-header-footer);
+  border-radius: 0 20px 20px 0;
+  font-weight: 500;
+}
+
+/* Estilo para el selector de usuarios */
+.admin-select {
+  border: 1px solid var(--color-accent);
+  background-color: var(--color-bg-chat);
+  color: var(--color-text-primary);
+}
+
+.admin-select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 0.15rem rgba(255, 165, 0, 0.25);
+  outline: none;
+}
+
+.admin-select option {
+  background-color: var(--color-bg-chat);
+  color: var(--color-text-primary);
+}
+
+/* Estilos para mensajes informativos */
+.chat-info-message {
+  text-align: center;
+  color: var(--color-text-primary);
+  margin: 0.75rem 0;
+  opacity: 0.8;
+  font-size: 0.9em;
+}
+
+/* Estilos para ocultar el formulario de chat del administrador hasta seleccionar usuario */
+.hidden-until-selection {
+  display: none;
+}
+
+.no-user-selected-message {
+  display: block;
+}

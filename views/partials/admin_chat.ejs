@@ -1,32 +1,33 @@
-<div id="admin-chat-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-  <button id="abrir-chat-admin" class="btn btn-danger rounded-circle" style="width: 60px; height: 60px;">💬</button>
+<div id="admin-chat-widget">
+  <button id="abrir-chat-admin" class="btn rounded-circle admin-chat-btn shadow-lg">💬</button>
 
-  <div id="admin-chat-box" class="card shadow" style="width: 300px; display: none;">
-    <div class="card-header bg-danger text-white">
-      Chat Admin
-      <button type="button" class="btn-close float-end btn-sm" aria-label="Cerrar" onclick="document.getElementById('admin-chat-box').style.display='none'"></button>
+  <div id="admin-chat-box" class="card shadow">    <div class="card-header">
+      <strong>Chat Administrador</strong>
+      <button type="button" class="btn-close float-end btn-sm chat-close-btn" aria-label="Cerrar"></button>
     </div>
     
-    <div class="p-2 border-bottom">
-      <select id="selector-usuario-chat" class="form-select form-select-sm">
+    <div class="admin-select-container">
+      <select id="selector-usuario-chat" class="form-select form-select-sm admin-select">
         <option value="">Seleccionar usuario...</option>
       </select>
     </div>
     
-    <div class="card-body" id="admin-chat-mensajes" style="height: 200px; overflow-y: auto;">
+    <div class="card-body" id="admin-chat-mensajes">
       <!-- Aquí se agregarán mensajes -->
-      <div class="text-center text-muted my-3">
+      <div class="chat-info-message">
         Selecciona un usuario para ver la conversación
       </div>
     </div>
-    
-    <div class="card-footer p-2">
-      <form id="form-chat-admin">
+      <div class="card-footer p-2">
+      <form id="form-chat-admin" class="hidden-until-selection">
         <div class="input-group">
-          <input type="text" id="input-chat-admin" class="form-control" placeholder="Responder..." disabled>
-          <button class="btn btn-danger" type="submit" disabled>Enviar</button>
+          <input type="text" id="input-chat-admin" class="form-control admin-chat-input" placeholder="Responder..." disabled>
+          <button class="btn btn-enviar-chat" type="submit" disabled>Enviar</button>
         </div>
       </form>
+      <div class="chat-info-message no-user-selected-message">
+        Selecciona un usuario para comenzar la conversación
+      </div>
     </div>
   </div>
 </div>

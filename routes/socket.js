@@ -17,8 +17,16 @@ function setupSocket(io) {  // Crear la columna destinatario_id si no existe
         }
       });
     }
-  });
-  io.on('connection', (socket) => {
+  });  io.on('connection', (socket) => {
+    // Obtener ID de usuario actual
+    socket.on('obtener_id_usuario', () => {
+      if (socket.handshake.session && socket.handshake.session.user) {
+        socket.emit('id_usuario', socket.handshake.session.user.id);
+      } else {
+        socket.emit('id_usuario', null);
+      }
+    });
+    
     // Cargar mensajes del chat de sala pública
     socket.on('cargar_mensajes_sala', () => {
       // Verificar que el usuario esté autenticado
@@ -155,11 +163,10 @@ function setupSocket(io) {  // Crear la columna destinatario_id si no existe
           socket.emit('lista_usuarios_chat', { usuarios });
         }
       });
-    });
-
-    // Cuando un usuario envía un mensaje
-    socket.on('mensaje_usuario', data => {
+    });    // Cuando un usuario envía un mensaje
+    socket.on('mensaje_usuario', (data, callback) => {
       if (!socket.handshake.session || !socket.handshake.session.user) {
+        if (callback) callback({ success: false, error: 'No autenticado' });
         return;
       }
 
@@ -171,6 +178,7 @@ function setupSocket(io) {  // Crear la columna destinatario_id si no existe
       db.query('SELECT id FROM usuarios WHERE rol = "admin" LIMIT 1', (err, adminResult) => {
         if (err || adminResult.length === 0) {
           console.error('Error al encontrar administrador:', err);
+          if (callback) callback({ success: false, error: 'Error al encontrar administrador' });
           return;
         }
         
@@ -181,9 +189,10 @@ function setupSocket(io) {  // Crear la columna destinatario_id si no existe
         db.query(sql, [userId, adminId, mensaje, 'user'], (err, result) => {
           if (err) {
             console.error('Error al guardar mensaje de usuario:', err);
+            if (callback) callback({ success: false, error: 'Error al guardar mensaje' });
           } else {
-            // Emitir el mensaje a todos los administradores
-            io.emit('nuevo_mensaje', {
+            // Preparar el objeto del mensaje
+            const nuevoMensaje = {
               id: result.insertId,
               remitente_id: userId,
               destinatario_id: adminId,
@@ -191,6 +200,15 @@ function setupSocket(io) {  // Crear la columna destinatario_id si no existe
               mensaje,
               tipo: 'user',
               fecha: new Date()
+            };
+            
+            // Emitir el mensaje a todos los administradores
+            io.emit('nuevo_mensaje', nuevoMensaje);
+            
+            // Si hay un callback, devolver confirmación
+            if (callback) callback({ 
+              success: true, 
+              id: result.insertId 
             });
           }
         });

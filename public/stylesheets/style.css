@@ -3,6 +3,7 @@
 @import url(header.css);
 @import url(footer.css);
 @import url(sala.css);
+@import url(chat.css);
 
 html,body {
   height: 100%;

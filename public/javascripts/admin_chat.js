@@ -6,15 +6,29 @@ document.addEventListener('DOMContentLoaded', function() {
   const inputChat = document.getElementById('input-chat-admin');
   const selectorUsuario = document.getElementById('selector-usuario-chat');
   const submitBtn = formChat?.querySelector('button[type="submit"]');
+  const btnCerrarChat = document.querySelector('#admin-chat-box .chat-close-btn');
   
   // Variables para controlar el estado
   let usuariosListosCargados = false;
   let usuarioSeleccionadoId = null;
   
-  // Abrir chat y cargar lista de usuarios si no se ha cargado
+  // Configurar el botón de cierre para mostrar nuevamente el botón de chat
+  btnCerrarChat?.addEventListener('click', () => {
+    // Ocultar el panel de chat y mostrar el botón
+    chatBox.style.display = 'none';
+    btnAbrirChat.style.display = 'block';
+  });
+  
+  // Establecer el estado inicial del formulario (oculto hasta que se seleccione un usuario)
+  if (formChat) {
+    formChat.classList.add('hidden-until-selection');
+  }
+    // Abrir chat y cargar lista de usuarios si no se ha cargado
   btnAbrirChat?.addEventListener('click', () => {
     if (chatBox) {
+      // Mostrar el panel de chat y ocultar el botón
       chatBox.style.display = 'block';
+      btnAbrirChat.style.display = 'none';
       
       // Si no hemos cargado la lista de usuarios, la solicitamos
       if (!usuariosListosCargados) {
@@ -22,22 +36,32 @@ document.addEventListener('DOMContentLoaded', function() {
         usuariosListosCargados = true;
       }
     }
-  });
-  
-  // Cuando se cambia el usuario seleccionado
+  });// Cuando se cambia el usuario seleccionado
   selectorUsuario?.addEventListener('change', function() {
     usuarioSeleccionadoId = this.value;
     
-    // Activar o desactivar el formulario según si hay usuario seleccionado
-    if (inputChat) {
-      inputChat.disabled = !usuarioSeleccionadoId;
-      if (submitBtn) submitBtn.disabled = !usuarioSeleccionadoId;
-    }
+    const formChatAdmin = document.getElementById('form-chat-admin');
+    const noUserSelectedMsg = document.querySelector('.no-user-selected-message');
     
+    // Mostrar u ocultar el formulario según si hay usuario seleccionado
     if (usuarioSeleccionadoId) {
+      // Hay usuario seleccionado
+      if (formChatAdmin) {
+        formChatAdmin.classList.remove('hidden-until-selection');
+      }
+      if (noUserSelectedMsg) {
+        noUserSelectedMsg.style.display = 'none';
+      }
+      
+      // Activar el formulario
+      if (inputChat) {
+        inputChat.disabled = false;
+        if (submitBtn) submitBtn.disabled = false;
+      }
+      
       // Mostrar mensaje de carga
       if (chatMensajes) {
-        chatMensajes.innerHTML = '<div class="text-center my-2">Cargando conversación...</div>';
+        chatMensajes.innerHTML = '<div class="chat-info-message">Cargando conversación...</div>';
       }
       
       // Solicitar mensajes para este usuario
@@ -45,9 +69,23 @@ document.addEventListener('DOMContentLoaded', function() {
         otroUsuarioId: parseInt(usuarioSeleccionadoId)
       });
     } else {
-      // No hay usuario seleccionado, mostrar instrucciones
+      // No hay usuario seleccionado
+      if (formChatAdmin) {
+        formChatAdmin.classList.add('hidden-until-selection');
+      }
+      if (noUserSelectedMsg) {
+        noUserSelectedMsg.style.display = 'block';
+      }
+      
+      // Desactivar el formulario
+      if (inputChat) {
+        inputChat.disabled = true;
+        if (submitBtn) submitBtn.disabled = true;
+      }
+      
+      // Mostrar instrucciones
       if (chatMensajes) {
-        chatMensajes.innerHTML = '<div class="text-center text-muted my-3">Selecciona un usuario para ver la conversación</div>';
+        chatMensajes.innerHTML = '<div class="chat-info-message">Selecciona un usuario para ver la conversación</div>';
       }
     }
   });
@@ -69,21 +107,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Limpiar input después de enviar
     inputChat.value = '';
   });
-  
   // Función para mostrar un mensaje en la interfaz
   function mostrarMensaje(remitente, mensaje, esAdmin) {
     if (!chatMensajes) return;
     
     const div = document.createElement('div');
-    div.textContent = `${remitente}: ${mensaje}`;
+    div.className = esAdmin ? 'mensaje-admin' : 'mensaje-usuario';
     
-    if (esAdmin) {
-      div.className = 'text-start text-danger mb-1';
-    } else {
-      div.className = 'text-end text-primary mb-1';
-    }
+    const strong = document.createElement('strong');
+    strong.textContent = remitente;
+    
+    const contenido = document.createElement('div');
+    contenido.className = 'mensaje-contenido';
+    contenido.textContent = mensaje;
+    
+    div.appendChild(strong);
+    div.appendChild(contenido);
+    
+    // Añadimos clases para entrada y salida con animaciones definidas en CSS
+    div.classList.add('mensaje-nuevo');
     
     chatMensajes.appendChild(div);
+    
+    // Forzamos el reflow para que la animación funcione
+    void div.offsetWidth;
+    
+    // Quitamos la clase de animación de entrada para que se muestre
+    div.classList.remove('mensaje-nuevo');
+    
+    // Scroll al final siempre que se añade un nuevo mensaje
     chatMensajes.scrollTop = chatMensajes.scrollHeight;
   }
   
@@ -111,11 +163,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Limpiar mensajes existentes
     chatMensajes.innerHTML = '';
-    
-    if (data.mensajes.length === 0) {
+      if (data.mensajes.length === 0) {
       const noMessagesDiv = document.createElement('div');
       noMessagesDiv.textContent = 'No hay mensajes anteriores con este usuario';
-      noMessagesDiv.className = 'text-center text-muted my-3';
+      noMessagesDiv.className = 'chat-info-message';
       chatMensajes.appendChild(noMessagesDiv);
       return;
     }
