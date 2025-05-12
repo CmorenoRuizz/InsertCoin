@@ -83,7 +83,7 @@ router.post('/login', async (req, res) => {
       rol: user.rol
     };
 
-    res.redirect('/');
+    res.redirect('/usuario');
   });
 });
 

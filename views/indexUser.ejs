@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <%- include("partials/head") %>
+</head>
+<body>
+
+  <header>
+      <% if (user) { %>
+        <%- include("partials/headerUser") %>
+      <% } else { %>
+        <%- include("partials/header") %>
+      <% } %>
+    </header>
+
+  <main class="text-center d-flex flex-column justify-content-center align-items-center" style="min-height: 80vh;">
+    <img src="/images/logo.png" alt="Logo InsertCoin" id="logo-animado" class="logo-insertcoin">
+    <h1 id="titulo-animado" class="display-3 fw-bold title-insertcoin">InsertCoin</h1>
+    <p id="subtitulo" class="lead subtitle-insertcoin">Bienvenido, <%= user.username %> 🎮</p>
+    <div id="mensaje-animado" class="rotating-message-user"></div>
+  </main>
+
+  <div id="aviso-movil" class="aviso-movil d-none">
+    <p>
+      Para un correcto funcionamiento del sitio web, se recomienda utilizar un navegador de escritorio. Los juegos solo serán jugables desde este.
+      <button id="cerrar-aviso" class="btn-ok">OK</button>
+    </p>
+  </div>
+
+  <%- include("partials/footer") %>
+
+  <script src="/javascripts/indexUserAnimations.js"></script>
+  <script src="/javascripts/avisoMovil.js"></script>
+  
+</body>
+</html>
