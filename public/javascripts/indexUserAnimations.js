@@ -2,32 +2,33 @@ gsap.registerPlugin(TextPlugin);
 
 // Logo
 gsap.from("#logo-animado", {
-  duration: 0.8,
+  duration: 1,
   scale: 0,
+  rotation: 180,
   ease: "back.out(1.7)"
 });
 
 // Título
 gsap.from("#titulo-animado", {
-  duration: 1,
-  y: -80,
+  duration: 1.2,
+  y: -100,
   opacity: 0,
   ease: "bounce.out",
-  delay: 0.2
+  delay: 0.3
 });
 
-// Subtítulo personalizado
+// Subtítulo
 gsap.from("#subtitulo", {
   duration: 1,
-  y: 20,
+  y: 30,
   opacity: 0,
-  delay: 0.8
+  delay: 1
 });
 
-// Mensaje motivacional
+// Texto rotativo (ahora bien grande y fluido)
 const frasesUsuario = [
-  "Prepárate para jugar",
-  "Sube en el ranking",
+  "¡Prepárate para jugar!",
+  "¡Sube en el ranking!",
   "¡Conquista InsertCoin!"
 ];
 
