@@ -14,37 +14,56 @@
       <% } else { %>
         <%- include("partials/header") %>
       <% } %>
-    </header>
+    </header>    <main class="text-center scrollable-container">
+      <div class="scroll-arrows">
+        <div id="scroll-arrow-up" class="scroll-arrow scroll-arrow-up">
+          <i class="fas fa-chevron-up"></i>
+        </div>
+        <div id="scroll-arrow-down" class="scroll-arrow scroll-arrow-down">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </div>
 
-    <main class="text-center d-flex flex-column justify-content-center align-items-center" style="min-height: 80vh">
-      <img src="/images/logo.png" alt="Logo InsertCoin" id="logo-animado" class="logo-insertcoin">
-      <h1 id="titulo-animado" class="display-3 fw-bold title-insertcoin">InsertCoin</h1>
-      <p id="subtitulo" class="lead subtitle-insertcoin">Bienvenido a tu salón arcade web</p>
-      <div id="mensaje-animado" class="rotating-message"></div>
+      <!-- Sección 1: Logo, título y mensaje animado -->
+      <section class="scroll-section section-1 d-flex flex-column justify-content-center align-items-center">
+        <img src="/images/logo.png" alt="Logo InsertCoin" id="logo-animado" class="logo-insertcoin">
+        <h1 id="titulo-animado" class="display-3 fw-bold title-insertcoin">InsertCoin</h1>
+        <p id="subtitulo" class="lead subtitle-insertcoin">Bienvenido a tu salón arcade web</p>
+        <div id="mensaje-animado" class="rotating-message"></div>
+      </section>
 
-      <section class="info-home container mt-5">
-        <div class="row justify-content-center text-start text-md-center">
-          <div class="col-md-4 mb-4">
-            <h5 class="text-accent fw-bold">🎮 Juega sin límites</h5>
-            <p>Explora nuestra colección de minijuegos arcade en 2D. Diseñados para desafiar tus reflejos y divertirte al máximo.</p>
-          </div>
-          <div class="col-md-4 mb-4">
-            <h5 class="text-accent fw-bold">📈 Escala en el ranking</h5>
-            <p>Compite contra otros jugadores y consigue tu puesto en lo más alto del ranking de cada juego.</p>
-          </div>
-          <div class="col-md-4 mb-4">
-            <h5 class="text-accent fw-bold">💬 Chatea con el admin</h5>
-            <p>¿Tienes dudas o sugerencias? Usa el chat integrado para contactar directamente con el administrador.</p>
+      <!-- Sección 2: Juega sin límites -->
+      <section class="scroll-section section-2 d-flex flex-column justify-content-center align-items-center">
+        <div class="content-container">
+          <h2 class="text-accent fw-bold section-title">🎮 Juega sin límites</h2>
+          <p class="section-text">Explora nuestra colección de minijuegos arcade en 2D. Diseñados para desafiar tus reflejos y divertirte al máximo.</p>
+        </div>
+      </section>
+
+      <!-- Sección 3: Escala en el ranking -->
+      <section class="scroll-section section-3 d-flex flex-column justify-content-center align-items-center">
+        <div class="content-container">
+          <h2 class="text-accent fw-bold section-title">📈 Escala en el ranking</h2>
+          <p class="section-text">Compite contra otros jugadores y consigue tu puesto en lo más alto del ranking de cada juego.</p>
+        </div>
+      </section>
+
+      <!-- Sección 4: Conecta con otros jugadores -->
+      <section class="scroll-section section-4 d-flex flex-column justify-content-center align-items-center">
+        <div class="content-container">
+          <h2 class="text-accent fw-bold section-title">💬 Conecta con otros jugadores</h2>
+          <p class="section-text">Chatea en vivo con otros jugadores de InsertCoin y comparte tus experiencias arcade en tiempo real.</p>
+        </div>
+      </section>      <!-- Sección 5: Botones de registro e inicio de sesión -->
+      <section class="scroll-section section-botones d-flex flex-column justify-content-center align-items-center">
+        <div class="content-container">
+          <h2 class="text-accent fw-bold section-title">🕹️ ¿A qué estás esperando? ¡Únete!</h2>
+          <div class="d-flex gap-4 mt-4">
+            <a href="/register" class="btn btn-accent fw-bold px-4 py-2">Registrarse</a>
+            <a href="/login" class="btn btn-outline-light fw-bold px-4 py-2">Iniciar sesión</a>
           </div>
         </div>
-    </section>
-
-    <div class="mt-5 d-flex gap-4">
-      <a href="/register" class="btn btn-accent fw-bold px-4 py-2">Registrarse</a>
-      <a href="/login" class="btn btn-outline-light fw-bold px-4 py-2">Iniciar sesión</a>
-    </div>
-
-
+      </section>
     </main>
 
 
