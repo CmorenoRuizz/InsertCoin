@@ -15,36 +15,52 @@
       <% } %>
     </header>
 
-    <main>   
+<main>
+      <section class="auth-container">
+        <div class="container">
+          <div class="row align-items-center">
+            <!-- Formulario de configuración (columna izquierda) -->
+            <div class="col-lg-6 order-lg-1 order-2 mb-4 mb-lg-0">
+              <div class="auth-form-container">
+                <h2 class="auth-form-title">Editar perfil</h2>
+                
+                <% if (success) { %>
+                  <div class="alert alert-success text-center mb-4"><%= success %></div>
+                <% } %>
 
-        <div class="container mt-5">
-            <h2 class="text-center mb-4">Editar perfil</h2>
+                <form action="/config" method="POST" enctype="multipart/form-data" class="auth-form" autocomplete="off">
+                  <div class="mb-3">
+                    <label for="username" class="form-label">Nuevo nombre de usuario</label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Dejar vacío si no quieres cambiarlo">
+                  </div>
 
-            <% if (success) { %>
-                <div class="alert alert-success text-center mb-4"><%= success %></div>
-            <% } %>
-              
-          
-            <form action="/config" method="POST" enctype="multipart/form-data" class="mx-auto" style="max-width: 500px;" autocomplete="off">
-              <div class="mb-3">
-                <label for="username" class="form-label">Nuevo nombre de usuario</label>
-                <input type="text" name="username" id="username" class="form-control" placeholder="<%= user.username %>" autocomplete="off">
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Nueva contraseña</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Dejar vacío si no quieres cambiarla">
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="avatar" class="form-label">Nuevo avatar</label>
+                    <input type="file" name="avatar" id="avatar" class="form-control">
+                  </div>
+
+                  <button type="submit" class="btn auth-btn w-100">Guardar cambios</button>
+                </form>
               </div>
-          
-              <div class="mb-3">
-                <label for="password" class="form-label">Nueva contraseña</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Dejar vacío si no quieres cambiarla" autocomplete="off">
+            </div>
+
+            <!-- Imagen o logo (columna derecha) -->
+            <div class="col-lg-6 order-lg-2 order-1 d-flex flex-column justify-content-center">
+              <div class="auth-logo">
+                <img src="/images/logo.png" alt="InsertCoin Logo" class="img-fluid">
               </div>
-          
-              <div class="mb-3">
-                <label for="avatar" class="form-label">Nuevo avatar</label>
-                <input type="file" name="avatar" id="avatar" class="form-control" autocomplete="off">
+              <div class="auth-message">
+                <p>Actualiza uno o varios datos de tu perfil cuando quieras.</p>
               </div>
-          
-              <button type="submit" class="btn btn-primary w-100">Guardar cambios</button>
-            </form>
+            </div>
           </div>
-
+        </div>
+      </section>
     </main>
 
     <footer>

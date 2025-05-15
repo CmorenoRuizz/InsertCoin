@@ -25,6 +25,17 @@
                 <% if (error) { %>
                   <div class="alert alert-danger"><%= error %></div>
                 <% } %>
+
+                <% if (success) { %>
+                  <div class="alert alert-success text-center mb-4"><%= success %></div>
+                  <script>                    
+                    setTimeout(function() {
+                      window.location.href = '/login';
+                    }, 5000);
+                  </script>
+                <% } %>
+
+
               
                 <form action="/register" method="POST" class="auth-form">
                   <div class="mb-3">

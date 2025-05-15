@@ -90,7 +90,7 @@ router.post('/login', async (req, res) => {
 
 // Vista de registro
 router.get('/register', (req, res) => {
-  res.render('register', { title: 'Registro', error: null });
+  res.render('register', { title: 'Registro', error: null, success: null });
 });
 
 
@@ -100,11 +100,11 @@ router.post('/register', async (req, res) => {
 
   // Validar campos
   if (!username || !password || !confirmar_password) {
-    return res.render('register', { title: 'Registro', error: 'Rellena todos los campos.' });
+    return res.render('register', { title: 'Registro', error: 'Rellena todos los campos.', success: null });
   }
 
   if (password !== confirmar_password) {
-    return res.render('register', { title: 'Registro', error: 'Las contraseñas no coinciden.' });
+    return res.render('register', { title: 'Registro', error: 'Las contraseñas no coinciden.', success: null });
   }
 
   // Verificar que el usuario no exista ya
@@ -113,7 +113,7 @@ router.post('/register', async (req, res) => {
     if (err) throw err;
 
     if (results.length > 0) {
-      return res.render('register', { title: 'Registro', error: 'El nombre de usuario ya existe.' });
+      return res.render('register', { title: 'Registro', error: 'El nombre de usuario ya existe.', success: null });
     }
 
     // Hashear la contraseña y crear el nuevo usuario
@@ -123,11 +123,12 @@ router.post('/register', async (req, res) => {
     db.query(sqlInsertar, [username, hash], (err2) => {
       if (err2) throw err2;
 
-      // Redirigir al login tras registrarse
-      res.redirect('/login');
+      // Usuario registrado correctamente
+      res.render('register', { title: 'Registro', error: null, success: 'Cuenta creada exitosamente. Redirigiendo al login...' });
     });
   });
 });
+
 
 
 router.get('/logout', (req, res) => {
