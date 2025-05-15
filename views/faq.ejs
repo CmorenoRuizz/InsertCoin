@@ -1,5 +1,19 @@
-<%- include('./partials/head', {titulo: 'Preguntas Frecuentes | InsertCoin'}) %>
-<%- include('./partials/header') %>
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <%- include("partials/head") %>
+
+  </head>
+  <body>
+
+    <header>
+      <% if (user) { %>
+        <%- include("partials/headerUser") %>
+      <% } else { %>
+        <%- include("partials/header") %>
+      <% } %>
+    </header>
 
 <main class="container-faq py-5">
   <div class="row justify-content-center">
@@ -194,4 +208,8 @@
   </div>
 </div>
 
-<%- include('./partials/footer') %>
+    <footer>
+      <%- include("partials/footer") %>
+    </footer>
+  </body>
+</html>

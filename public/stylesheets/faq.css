@@ -5,6 +5,9 @@
   padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .faq-title {
@@ -19,6 +22,15 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Ajustes para estructura Bootstrap */
+.container-faq .row {
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .accordion-item {
@@ -46,6 +58,9 @@
   border-radius: 6px !important;
   padding: 1rem 1.25rem;
   font-size: 1.1rem;
+  word-wrap: break-word;
+  white-space: normal;
+  text-align: left;
 }
 
 .accordion-button:not(.collapsed) {
@@ -68,6 +83,9 @@
   border-top: 1px solid rgba(var(--color-accent-rgb), 0.3);
   padding: 1.5rem;
   line-height: 1.6;
+  word-wrap: break-word;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Responsive */
@@ -79,5 +97,10 @@
   
   .accordion-body {
     padding: 1.2rem;
+  }
+  
+  .row {
+    margin-right: 0;
+    margin-left: 0;
   }
 }
