@@ -98,36 +98,33 @@ router.get('/register', (req, res) => {
 router.post('/register', async (req, res) => {
   const { username, password, confirmar_password } = req.body;
 
-  // Validar campos
   if (!username || !password || !confirmar_password) {
-    return res.render('register', { title: 'Registro', error: 'Rellena todos los campos.', success: null });
+    return res.json({ error: 'Rellena todos los campos.', success: null });
   }
 
   if (password !== confirmar_password) {
-    return res.render('register', { title: 'Registro', error: 'Las contraseñas no coinciden.', success: null });
+    return res.json({ error: 'Las contraseñas no coinciden.', success: null });
   }
 
-  // Verificar que el usuario no exista ya
   const sqlBuscar = 'SELECT * FROM usuarios WHERE username = ? LIMIT 1';
   db.query(sqlBuscar, [username], async (err, results) => {
-    if (err) throw err;
+    if (err) return res.json({ error: 'Error en la base de datos.', success: null });
 
     if (results.length > 0) {
-      return res.render('register', { title: 'Registro', error: 'El nombre de usuario ya existe.', success: null });
+      return res.json({ error: 'El nombre de usuario ya existe.', success: null });
     }
 
-    // Hashear la contraseña y crear el nuevo usuario
     const hash = await bcrypt.hash(password, 10);
 
     const sqlInsertar = 'INSERT INTO usuarios (username, password) VALUES (?, ?)';
     db.query(sqlInsertar, [username, hash], (err2) => {
-      if (err2) throw err2;
+      if (err2) return res.json({ error: 'Error al registrar el usuario.', success: null });
 
-      // Usuario registrado correctamente
-      res.render('register', { title: 'Registro', error: null, success: 'Cuenta creada exitosamente. Redirigiendo al login...' });
+      return res.json({ success: 'Cuenta creada exitosamente. Redirigiendo al login...', error: null });
     });
   });
 });
+
 
 
 
