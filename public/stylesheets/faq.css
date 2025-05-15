@@ -1,0 +1,83 @@
+/* Estilos para la página de Preguntas Frecuentes (FAQ) */
+
+.container-faq {
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-title {
+  font-family: var(--font-arcade);
+  color: var(--color-accent);
+  margin-bottom: 2rem;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* Personalización del Accordion */
+.accordion {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.accordion-item {
+  background-color: rgba(20, 23, 43, 0.8);
+  border: none;
+  margin-bottom: 0.5rem;
+}
+
+.accordion-item:first-of-type {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.accordion-item:last-of-type {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  margin-bottom: 0;
+}
+
+.accordion-button {
+  background-color: rgba(20, 23, 43, 0.9);
+  color: var(--color-text-primary);
+  font-family: var(--font-arcade);
+  border: 1px solid var(--color-accent);
+  border-radius: 6px !important;
+  padding: 1rem 1.25rem;
+  font-size: 1.1rem;
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--color-text-primary);
+  background-color: var(--color-accent);
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(var(--color-accent-rgb), 0.25);
+  border-color: var(--color-accent);
+}
+
+.accordion-button::after {
+  filter: invert(1); /* Invertir el color del icono para que sea visible */
+}
+
+.accordion-body {
+  background-color: rgba(30, 33, 53, 0.8);
+  color: var(--color-text-primary);
+  border-top: 1px solid rgba(var(--color-accent-rgb), 0.3);
+  padding: 1.5rem;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .accordion-button {
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+  }
+  
+  .accordion-body {
+    padding: 1.2rem;
+  }
+}
