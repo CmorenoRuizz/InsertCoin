@@ -14,31 +14,64 @@
 
     <main>
       <div class="container mt-5">
-        <h2 class="text-center mb-4">Ranking de Jugadores</h2>
+        <div class="ranking-container">
+          <h2 class="ranking-title">Ranking de Jugadores</h2>
 
-        <div class="mb-4 text-center">
-          <label for="juego" class="form-label">Selecciona un juego:</label>
-          <select id="juego" class="form-select w-auto d-inline-block">
-            <option value="" selected disabled>Selecciona un juego</option>
-            <option value="tetris">Tetris</option>
-            <!-- Aquí irán más juegos en el futuro -->
-          </select>
+          <div class="game-selector-container">
+            <label for="juego" class="form-label">Selecciona un juego:</label>
+            <select id="juego" class="game-selector">
+              <option value="" selected disabled>Selecciona un juego</option>
+              <option value="tetris">Tetris</option>
+              <!-- Aquí irán más juegos en el futuro -->
+            </select>
+          </div>
+
+          <div class="ranking-table-container">
+            <table class="ranking-table">
+              <thead>
+                <tr>
+                  <th>Jugador</th>
+                  <th>Puntuación</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-ranking">
+                <tr>
+                  <td colspan="2">Selecciona un juego para ver el ranking</td>
+                </tr>          </tbody>
+            </table>
+          </div>
         </div>
-
-        <table class="table table-dark table-striped text-center">
-          <thead>
-            <tr>
-              <th>Jugador</th>
-              <th>Puntuación</th>
-            </tr>
-          </thead>
-          <tbody id="tabla-ranking">
-            <tr>
-              <td colspan="2">Selecciona un juego para ver el ranking</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
+
+      <!-- <script>
+        document
+          .getElementById("juego")
+          .addEventListener("change", async function () {
+            const juego = this.value;
+            if (!juego) return;
+
+            const res = await fetch(`/ranking/${juego}`);
+            const data = await res.json();
+
+            const tabla = document.getElementById("tabla-ranking");
+            tabla.innerHTML = "";
+
+            if (data.length === 0) {
+              tabla.innerHTML =
+                '<tr><td colspan="2">Sin puntuaciones aún</td></tr>';
+              return;
+            }
+
+            data.forEach((fila) => {
+              tabla.innerHTML += `
+            <tr>
+                <td>${fila.username}</td>
+                <td>${fila.puntuacion}</td>
+            </tr>
+            `;
+            });
+          });
+      </script> -->
 
       <script>
         document
@@ -67,8 +100,7 @@
             </tr>
             `;
             });
-          });
-      </script>
+          });      </script>
     </main>
 
     <footer><%- include("partials/footer") %></footer>

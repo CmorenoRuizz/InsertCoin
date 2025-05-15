@@ -6,6 +6,7 @@
 @import url(chat.css);
 @import url(auth.css);
 @import url(faq.css);
+@import url(ranking.css);
 
 html,body {
   height: 100%;

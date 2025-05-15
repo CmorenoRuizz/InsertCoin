@@ -1,0 +1,101 @@
+/* Estilos para la página de ranking */
+
+.ranking-container {
+  background: rgba(20, 23, 43, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.ranking-title {
+  font-family: var(--font-arcade);
+  text-align: center;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.game-selector-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.game-selector {
+  background-color: rgba(10, 12, 25, 0.8);
+  border: 2px solid var(--color-accent);
+  border-radius: 8px;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  width: auto;
+}
+
+.game-selector:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.3);
+}
+
+.game-selector option {
+  background-color: #14172b;
+  color: white;
+}
+
+.ranking-table-container {
+  overflow-x: auto;
+  border-radius: 15px;
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ranking-table thead {
+  background-color: rgb(15, 17, 34);
+}
+
+.ranking-table thead th {
+  color: var(--color-accent);
+  padding: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  border: none;
+}
+
+.ranking-table tbody tr {
+  background-color: rgba(33, 33, 55, 0.7);
+}
+
+.ranking-table tbody tr:nth-child(even) {
+  background-color: rgba(28, 28, 48, 0.7);
+}
+
+.ranking-table tbody td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(255, 165, 0, 0.3);
+  color: var(--color-text-primary);
+}
+
+.ranking-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .game-selector {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  
+  .ranking-container {
+    padding: 1.5rem;
+  }
+}
