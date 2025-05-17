@@ -199,8 +199,7 @@ class TetrisScene extends Phaser.Scene {
       const oTetrimino = this.textures.get("o").getSourceImage();
       this.blockSize = oTetrimino.width/4;
     });
-  }
-  create() {
+  }  create() {
     let bg = this.add.image(0,0,"board");
     this.lineClear = this.sound.add("lineClear");
     bg.setOrigin(0,0);
@@ -275,9 +274,7 @@ class TetrisScene extends Phaser.Scene {
     finalScore.innerText = score;
     // Guardar puntuación en la base de datos
     guardarPuntuacion(score);
-   }
-
-   resetGame() {
+   }   resetGame() {
     endGameContainer.style.display = "none";
     gameOver = false;
     score=0;
@@ -554,3 +551,34 @@ function guardarPuntuacion(score) {
     }
   });
 }
+
+
+// Audio para tetris
+window.addEventListener('DOMContentLoaded', () => {
+  const musica = document.getElementById('control-musica');
+  const volumen = document.getElementById('volumen');
+  const muteBtn = document.getElementById('mute-btn');
+
+  musica.volume = volumen.value;
+  
+  // Intenta reproducir (los navegadores pueden bloquearlo hasta interacción del usuario)
+  musica.play().catch(() => {
+    console.warn("Autoplay bloqueado. Se iniciará tras una interacción del usuario.");
+  });
+
+  // Añadir manejador de eventos para iniciar música al hacer clic en cualquier parte
+  // document.addEventListener('click', () => {
+  //   if (musica.paused) {
+  //     musica.play().catch(err => console.warn("No se pudo reproducir la música:", err));
+  //   }
+  // }, { once: true });
+
+  volumen.addEventListener('input', () => {
+    musica.volume = volumen.value;
+  });
+
+  muteBtn.addEventListener('click', () => {
+    musica.muted = !musica.muted;
+    muteBtn.textContent = musica.muted ? '🔇' : '🔊';
+  });
+});

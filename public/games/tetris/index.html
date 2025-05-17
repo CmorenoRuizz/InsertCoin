@@ -18,6 +18,16 @@
     <div class="header-juego">
         <h1 class="title-insertcoin">InsertCoin</h1>
         <a href="/juegos" class="btn-volver">← Volver</a>
+
+      <div class="audio-controls">
+        <audio id="control-musica" loop hidden>
+          <source src="/games/tetris/assets/Sound Effects/Tetris Soundtrack.mp3" type="audio/mpeg">
+        </audio>
+
+        <button id="mute-btn">🔊</button>
+        <input type="range" id="volumen" min="0" max="1" step="0.01" value="0.5">
+      </div>
+
     </div>
 
     <div class="container">
