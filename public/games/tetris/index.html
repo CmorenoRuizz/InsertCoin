@@ -1,28 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Tetris - InsertCoin</title>
-  <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
-  <style>
-    body {
-      margin: 0;
-      background: #000;
-      color: #fff;
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    #score {
-      margin: 1rem;
-      font-size: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsertCoin - Tetris</title>
+    <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/games/tetris/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
 </head>
 <body>
-  <h1>Tetris</h1>
-  <div id="score">Puntuación: 0</div>
-  <script src="/games/tetris/tetris.js"></script>
+    
+    <div class="header-juego">
+        <h1 class="title-insertcoin">InsertCoin</h1>
+        <a href="/juegos" class="btn-volver">← Volver</a>
+    </div>
+
+    <div class="container">
+      <div id="boardContainer">
+        <div id="endGameContainer">
+          <div id="gameMessage">
+             ¡Se acabó!
+          </div>
+          <div id="scoreContainer">
+             <div>
+                Puntos: <span id="finalScore">0</span>
+             </div>
+          </div>
+          <div id="buttonContainer">
+            <img id="startGame" src="/games/tetris/assets/Title/retry.png">
+          </div>
+        </div>  
+      </div>
+      <div class="displayContainer">
+        <div class="nextTetrimino"><img id="nextTetriminoImage" /></div>
+        <div class="score"><span>Puntuación</span><span id="scoreNumber">0</span></div>
+        <div class="score"><span>Lineas</span><span id="linesNumber">0</span></div>
+        <div class="score"><span>Nivel</span><span id="levelNumber">1</span></div>        
+      </div>
+     </div>
+
+
+    <script src="/games/tetris/main.js"></script>
 </body>
 </html>
