@@ -15,35 +15,70 @@
       <% } %>
     </header>
 
-    <main class="container mt-5">
-        <h2 class="text-center mb-4">Juegos disponibles</h2>
-      
-        <div class="row justify-content-center">
-          <div class="col-md-6">
-            <div class="card text-center shadow-sm">
-              <div class="card-body">
-                <h5 class="card-title">Tetris</h5>
-                <p class="card-text">¡Encaja las piezas y consigue la mayor puntuación posible!</p>
-                <a href="/juegos/tetris" class="btn btn-primary">Jugar ahora</a>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Snake</h5>
-                <p class="card-text">¡Come monedas y consigue la mayor puntuación posible!</p>
-                <a href="/juegos/snake" class="btn btn-primary">Jugar ahora</a>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">FlappyBird</h5>
-                <p class="card-text">¡Consigue aguantar y consigue la mayor puntuación posible!</p>
-                <a href="/juegos/flappybird" class="btn btn-primary">Jugar ahora</a>
-              </div>
-            </div>
+<main id="main-juegos">
+  <section class="juego-section tetris">
+    <div class="outer">
+      <div class="inner">
+        <div class="bg">
+          <h2 class="section-heading">Tetris</h2>
+          <div class="juego-actions">
+            <button class="btn-instrucciones" data-juego="tetris">Instrucciones</button>
+            <a href="/juegos/tetris" class="btn-jugar">Jugar ahora</a>
           </div>
         </div>
-      </main>
-      
+      </div>
+    </div>
+  </section>
 
-    <footer>
+  <section class="juego-section snake">
+    <div class="outer">
+      <div class="inner">
+        <div class="bg">
+          <h2 class="section-heading">Snake</h2>
+          <div class="juego-actions">
+            <button class="btn-instrucciones" data-juego="snake">Instrucciones</button>
+            <a href="/juegos/snake" class="btn-jugar">Jugar ahora</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="juego-section flappybird">
+    <div class="outer">
+      <div class="inner">
+        <div class="bg">
+          <h2 class="section-heading">Flappy Bird</h2>
+          <div class="juego-actions">
+            <button class="btn-instrucciones" data-juego="flappybird">Instrucciones</button>
+            <a href="/juegos/flappybird" class="btn-jugar">Jugar ahora</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+      
+<!-- Modal de instrucciones -->
+<div class="modal fade" id="modalInstrucciones" tabindex="-1" aria-labelledby="modalInstruccionesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header border-0">
+        <h5 class="modal-title font-arcade" id="modalInstruccionesLabel">Instrucciones</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="contenido-instrucciones">
+        <!-- Aquí se insertará el contenido dinámicamente -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
       <%- include("partials/footer") %>
-    </footer>
+    
+      <script src="/javascripts/juegosAnimations.js"></script>
+      <script src="/javascripts/modalJuegos.js"></script> 
   </body>
 </html>

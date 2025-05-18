@@ -7,6 +7,7 @@
 @import url(auth.css);
 @import url(faq.css);
 @import url(ranking.css);
+@import url(juegos.css);
 
 html,body {
   height: 100%;
