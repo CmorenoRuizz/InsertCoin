@@ -31,49 +31,22 @@
           <div class="ranking-table-container">
             <table class="ranking-table">
               <thead>
-                <tr>
-                  <th>Jugador</th>
-                  <th>Puntuación</th>
-                </tr>
-              </thead>
+              <tr>
+                <th>#</th>
+                <th>Jugador</th>
+                <th>Puntuación</th>
+              </tr>
+            </thead>
+
               <tbody id="tabla-ranking">
                 <tr>
-                  <td colspan="2">Selecciona un juego para ver el ranking</td>
-                </tr>          </tbody>
+                  <td colspan="3">Selecciona un juego para ver el ranking</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
       </div>
-
-      <!-- <script>
-        document
-          .getElementById("juego")
-          .addEventListener("change", async function () {
-            const juego = this.value;
-            if (!juego) return;
-
-            const res = await fetch(`/ranking/${juego}`);
-            const data = await res.json();
-
-            const tabla = document.getElementById("tabla-ranking");
-            tabla.innerHTML = "";
-
-            if (data.length === 0) {
-              tabla.innerHTML =
-                '<tr><td colspan="2">Sin puntuaciones aún</td></tr>';
-              return;
-            }
-
-            data.forEach((fila) => {
-              tabla.innerHTML += `
-            <tr>
-                <td>${fila.username}</td>
-                <td>${fila.puntuacion}</td>
-            </tr>
-            `;
-            });
-          });
-      </script> -->
 
       <script>
         document
@@ -94,15 +67,25 @@
               return;
             }
 
-            data.forEach((fila) => {
+            data.forEach((fila, index) => {
+              let icon = index === 0
+                ? '<i class="fas fa-crown text-warning first-place-icon"></i>'
+                : index === 1
+                ? '<i class="fas fa-medal text-secondary"></i>'
+                : index === 2
+                ? '<i class="fas fa-award text-bronze"></i>'
+                : `${index + 1}`;
+
               tabla.innerHTML += `
-            <tr>
-                <td>${fila.username}</td>
-                <td>${fila.puntuacion}</td>
-            </tr>
-            `;
+              <tr>
+                  <td>${icon}</td>
+                  <td>${fila.username}</td>
+                  <td>${fila.puntuacion}</td>
+              </tr>
+              `;
             });
-          });      </script>
+          });
+          </script>
     </main>
 
     <footer><%- include("partials/footer") %></footer>

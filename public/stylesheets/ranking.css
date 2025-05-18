@@ -88,6 +88,32 @@
   border-bottom: none;
 }
 
+.text-bronze {
+  color: #cd7f32;
+}
+
+
+.first-place-icon {
+  animation: pulse-glow 1.2s infinite;
+}
+
+@keyframes pulse-glow {
+  0% {
+    filter: drop-shadow(0 0 4px #ffd700);
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 10px #ffd700);
+    transform: scale(1.15);
+  }
+  100% {
+    filter: drop-shadow(0 0 4px #ffd700);
+    transform: scale(1);
+  }
+}
+
+
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .game-selector {
