@@ -26,6 +26,11 @@ router.get('/juegos/snake', soloUsuarios, (req, res) => {
   res.sendFile(path.join(__dirname, '../public/games/snake/index.html'));
 });
 
+// Ruta para jugar al Flappy Bird
+router.get('/juegos/flappybird', soloUsuarios, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/games/flappybird/index.html'));
+});
+
 // Guardar puntuación si es mejor que la anterior
 router.post('/guardar-puntuacion', (req, res) => {
   if (!req.session.user) return res.status(401).send('No autorizado');
