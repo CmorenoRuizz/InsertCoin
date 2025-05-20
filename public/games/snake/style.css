@@ -157,3 +157,34 @@ canvas {
   display: block;
   margin: 0 auto 20px auto;
 }
+
+
+/* scrollbar personalizada con scrollbar.app */
+
+body {
+  --sb-track-color: #000000;
+  --sb-thumb-color: #ffa500;
+  --sb-size: 7px;
+}
+
+body::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 8px;
+  
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
+}
