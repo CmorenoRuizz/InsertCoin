@@ -2,6 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // Registrar plugins
   gsap.registerPlugin(Observer);
   
+  // Referencias a elementos
+  const scrollArrowUp = document.getElementById('scroll-arrow-up');
+  const scrollArrowDown = document.getElementById('scroll-arrow-down');
+  
   // Función para ajustar alturas del contenedor principal
   function ajustarAlturas() {
     const header = document.querySelector('header');
@@ -26,6 +30,23 @@ document.addEventListener('DOMContentLoaded', function() {
   // Ajustar alturas al cargar y al redimensionar
   ajustarAlturas();
   window.addEventListener('resize', ajustarAlturas);
+
+  // Configurar la animación de las flechas
+  gsap.to(scrollArrowDown, {
+    y: 8,
+    repeat: -1,
+    yoyo: true,
+    ease: "power1.inOut",
+    duration: 1
+  });
+  
+  gsap.to(scrollArrowUp, {
+    y: -8,
+    repeat: -1,
+    yoyo: true,
+    ease: "power1.inOut",
+    duration: 1
+  });
 
   // Inicializamos las variables para el scroll
   let sections = document.querySelectorAll(".juego-section"),
@@ -67,7 +88,11 @@ function gotoSection(index, direction) {
 
   let tl = gsap.timeline({
     defaults: { duration: 1, ease: "power2.inOut" },
-    onComplete: () => animating = false
+    onComplete: () => {
+      animating = false;
+      // Actualizar el estado de las flechas
+      toggleScrollArrows(index);
+    }
   });
 
   if (currentIndex >= 0) {
@@ -95,6 +120,36 @@ function gotoSection(index, direction) {
 
   currentIndex = index;
 }
+
+  // Función para mostrar u ocultar las flechas según la sección actual
+  function toggleScrollArrows(sectionIndex) {
+    if (sectionIndex <= 0) {
+      // Primera sección: solo flecha hacia abajo
+      scrollArrowUp.classList.add('hidden');
+      scrollArrowDown.classList.remove('hidden');
+    } else if (sectionIndex >= sections.length - 1) {
+      // Última sección: solo flecha hacia arriba
+      scrollArrowUp.classList.remove('hidden');
+      scrollArrowDown.classList.add('hidden');
+    } else {
+      // Secciones intermedias: ambas flechas
+      scrollArrowUp.classList.remove('hidden');
+      scrollArrowDown.classList.remove('hidden');
+    }
+  }
+
+  // Event listeners para el clic en las flechas
+  scrollArrowDown.addEventListener('click', () => {
+    if (!animating && currentIndex < sections.length - 1) {
+      gotoSection(currentIndex + 1, 1);
+    }
+  });
+  
+  scrollArrowUp.addEventListener('click', () => {
+    if (!animating && currentIndex > 0) {
+      gotoSection(currentIndex - 1, -1);
+    }
+  });
 
   Observer.create({
     type: "wheel,touch,pointer",
