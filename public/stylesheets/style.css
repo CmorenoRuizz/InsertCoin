@@ -8,6 +8,7 @@
 @import url(faq.css);
 @import url(ranking.css);
 @import url(juegos.css);
+@import url(contacto.css);
 
 html,body {
   height: 100%;
