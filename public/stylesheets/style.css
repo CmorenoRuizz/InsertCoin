@@ -10,6 +10,7 @@
 @import url(juegos.css);
 @import url(contacto.css);
 @import url(mensajes.css);
+@import url(admin.css);
 
 html,body {
   height: 100%;

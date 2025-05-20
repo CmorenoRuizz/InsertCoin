@@ -15,81 +15,86 @@
       <% } %>
     </header>
 
-    <main>
-      
-        <div class="container mt-5">
-            <h2 class="text-center mb-4">Panel de mensajes de contacto</h2>
-          
-            <% if (mensajes.length === 0) { %>
-              <p class="text-center">No hay mensajes aún.</p>
-            <% } else { %>
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Fecha</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% mensajes.forEach(m => { %>
-                    <tr>
-                      <td><%= m.id %></td>
-                      <td><%= m.nombre %></td>
-                      <td><%= m.email || '-' %></td>
-                      <td><%= m.fecha.toLocaleString() %></td>
-                      <td>
-                        <button class="btn btn-info btn-sm" data-mensaje="<%= m.mensaje.replace(/"/g, '&quot;') %>" onclick="mostrarModal(this)">Ver</button>
+<main>
+  <div class="container mt-5">
+    <div class="admin-container">
+      <h2 class="admin-title">Panel de mensajes de contacto</h2>
 
-                        <% if (m.user_id) { %>
-                          <button
-                            class="btn btn-warning btn-sm"
-                            data-id="<%= m.id %>"
-                            data-mensaje="<%= m.mensaje.replace(/"/g, '&quot;') %>"
-                            data-respuesta="<%= m.respuesta ? m.respuesta.replace(/"/g, '&quot;') : '' %>"
-                            onclick="abrirFormularioRespuesta(this)"
-                          >
-                            Responder
-                          </button>
-                        <% } %>
+      <% if (mensajes.length === 0) { %>
+        <p class="text-center">No hay mensajes aún.</p>
+      <% } else { %>
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% mensajes.forEach(m => { %>
+                <tr>
+                  <td><%= m.id %></td>
+                  <td><%= m.nombre %></td>
+                  <td><%= m.email || '-' %></td>
+                  <td><%= m.fecha.toLocaleString() %></td>
+                  <td>
+                    <button class="btn btn-info btn-sm" data-mensaje="<%= m.mensaje.replace(/"/g, '&quot;') %>" onclick="mostrarModal(this)">Ver</button>
 
-                        <form action="/admin/mensaje/<%= m.id %>/eliminar" method="POST" class="d-inline">
-                          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                        </form>
-                      </td>                      
-                    </tr>
-                  <% }) %>
-                </tbody>
-              </table>
-              <dialog id="modalMensaje">
-                <h4>Mensaje completo</h4>
-                <p id="contenidoMensaje"></p>
-                <form method="dialog">
-                  <button class="btn btn-secondary">Cerrar</button>
-                </form>
-              </dialog>
+                    <% if (m.user_id) { %>
+                      <button
+                        class="btn btn-warning btn-sm"
+                        data-id="<%= m.id %>"
+                        data-mensaje="<%= m.mensaje.replace(/"/g, '&quot;') %>"
+                        data-respuesta="<%= m.respuesta ? m.respuesta.replace(/"/g, '&quot;') : '' %>"
+                        onclick="abrirFormularioRespuesta(this)"
+                      >
+                        Responder
+                      </button>
+                    <% } %>
 
-              <dialog id="modalRespuesta">
-                <form method="POST" id="formRespuesta">
-                  <h4>Responder al mensaje</h4>
-                  <p id="mensajeOriginal"></p>
-                  <div class="mb-3">
-                    <label class="form-label">Respuesta</label>
-                    <textarea name="respuesta" class="form-control" rows="4" required></textarea>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-success">Enviar</button>
-                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('modalRespuesta').close()">Cancelar</button>
-                  </div>
-                </form>
-              </dialog>
-              
-              
-            <% } %>
-          </div>
-          
+                    <form action="/admin/mensaje/<%= m.id %>/eliminar" method="POST" class="d-inline">
+                      <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                  </td>                      
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Modales -->
+        <dialog id="modalMensaje">
+          <h4>Mensaje completo</h4>
+          <p id="contenidoMensaje"></p>
+          <form method="dialog">
+            <button class="btn btn-secondary">Cerrar</button>
+          </form>
+        </dialog>
+
+        <dialog id="modalRespuesta">
+          <form method="POST" id="formRespuesta">
+            <h4>Responder al mensaje</h4>
+            <p id="mensajeOriginal"></p>
+            <div class="mb-3">
+              <label class="form-label">Respuesta</label>
+              <textarea name="respuesta" class="form-control" rows="4" required></textarea>
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-success">Enviar</button>
+              <button type="button" class="btn btn-secondary" onclick="document.getElementById('modalRespuesta').close()">Cancelar</button>
+            </div>
+          </form>
+        </dialog>
+      <% } %>
+    </div>
+  </div>
+</main>
+
+
           <script>
             function mostrarModal(btn) {
               const texto = btn.dataset.mensaje;
@@ -115,14 +120,8 @@
             }
 
           </script>
-          
-          
-          
 
-    </main>
-
-    <footer>
       <%- include("partials/footer") %>
-    </footer>
+    
   </body>
 </html>

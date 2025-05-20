@@ -10,9 +10,17 @@ function soloUsuarios(req, res, next) {
   next();
 }
 
+// // Ruta principal del usuario logeado
+// router.get('/', soloUsuarios, (req, res) => {
+//   res.render('indexUser', { title: 'Inicio', user: req.session.user });
+// });
+
 // Ruta principal del usuario logeado
 router.get('/', soloUsuarios, (req, res) => {
-  res.render('indexUser', { title: 'InsertCoin - Inicio Usuario', user: req.session.user });
+  res.render('indexUser', {
+  title: req.session.user.username,
+  user: req.session.user
+  });
 });
 
 module.exports = router;

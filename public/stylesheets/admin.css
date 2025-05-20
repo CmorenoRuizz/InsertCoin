@@ -1,0 +1,90 @@
+.admin-container {
+  background: rgba(20, 23, 43, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.admin-title {
+  font-family: var(--font-arcade);
+  text-align: center;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+/* Tabla estilo arcade */
+.admin-table-container {
+  overflow-x: auto;
+  border-radius: 15px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.admin-table thead {
+  background-color: rgb(15, 17, 34);
+}
+
+.admin-table thead th {
+  color: var(--color-accent);
+  padding: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  border: none;
+}
+
+.admin-table tbody tr {
+  background-color: rgba(33, 33, 55, 0.7);
+}
+
+.admin-table tbody tr:nth-child(even) {
+  background-color: rgba(28, 28, 48, 0.7);
+}
+
+.admin-table tbody td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(255, 165, 0, 0.3);
+  color: var(--color-text-primary);
+}
+
+.admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Modal personalizado */
+dialog {
+  border: 3px solid var(--color-accent);
+  border-radius: 12px;
+  padding: 1.5rem;
+  background-color: #14172b;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 15px rgba(255, 165, 0, 0.2);
+}
+
+dialog h4 {
+  font-family: var(--font-arcade);
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 1.5rem;
+  }
+}
