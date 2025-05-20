@@ -1,0 +1,71 @@
+.mensajes-container {
+  background: rgba(20, 23, 43, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.mensajes-title {
+  font-family: var(--font-arcade);
+  text-align: center;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.mensajes-table-container {
+  overflow-x: auto;
+  border-radius: 15px;
+}
+
+.mensajes-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mensajes-table thead {
+  background-color: rgb(15, 17, 34);
+}
+
+.mensajes-table thead th {
+  color: var(--color-accent);
+  padding: 1rem;
+  font-weight: bold;
+  text-transform: none;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+.mensajes-table tbody tr {
+  background-color: rgba(33, 33, 55, 0.7);
+}
+
+.mensajes-table tbody tr:nth-child(even) {
+  background-color: rgba(28, 28, 48, 0.7);
+}
+
+.mensajes-table tbody td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(255, 165, 0, 0.3);
+  color: var(--color-text-primary);
+  vertical-align: middle;
+}
+
+.mensajes-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.mensajes-table .text-muted {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mensajes-container {
+    padding: 1.5rem;
+  }
+}

@@ -9,6 +9,7 @@
 @import url(ranking.css);
 @import url(juegos.css);
 @import url(contacto.css);
+@import url(mensajes.css);
 
 html,body {
   height: 100%;
