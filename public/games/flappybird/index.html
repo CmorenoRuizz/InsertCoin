@@ -17,10 +17,51 @@
     
     <div class="header-juego">
         <h1 class="title-insertcoin">InsertCoin</h1>
-        <a href="/juegos" class="btn-volver">← Volver</a>      
+        <div class="btn-container">
+            <a href="/juegos" class="btn-volver">← Volver</a>
+            <button class="btn-volver" id="btnRanking">Ver Ranking</button>
+        </div>
     </div>
 
 
+
     <script src="/games/flappybird/main.js"></script>
+    <dialog id="rankingModal">
+    <div class="ranking-modal-content">
+        <h4 class="ranking-modal-title">Tu posición en el ranking</h4>
+        <p id="rankingInfoText">Cargando...</p>
+        <form method="dialog">
+        <button class="btn-ranking-close">Cerrar</button>
+        </form>
+    </div>
+    </dialog>
+
+    <script>
+    document.getElementById('btnRanking').addEventListener('click', async () => {
+        try {
+        const res = await fetch('/ranking-info/flappybird');
+        const data = await res.json();
+        const text = document.getElementById('rankingInfoText');
+
+        if (data.posicion === null) {
+            text.textContent = 'Aún no tienes puntuación registrada para este juego.';
+        } else if (data.posicion === 1) {
+            text.textContent = `🏆 ¡Eres el número 1 en el ranking con ${data.miPuntuacion} puntos!`;
+        } else if (data.posicion === 2 && data.anterior) {
+            text.textContent = `🥈 Solo tienes delante a ${data.anterior.username} con ${data.anterior.puntuacion} puntos.\nTu puntuación es ${data.miPuntuacion}.`;
+        } else {
+            text.textContent = `📈 Tu puntuación es ${data.miPuntuacion} puntos.\n👤 Delante tienes a ${data.anterior.username} con ${data.anterior.puntuacion} puntos.\n🏆 El número 1 es ${data.primero.username} con ${data.primero.puntuacion} puntos.`;
+        }
+
+        document.getElementById('rankingModal').showModal();
+        } catch (error) {
+        console.error('Error al obtener ranking:', error);
+        document.getElementById('rankingInfoText').textContent = 'Error al obtener datos del ranking.';
+        document.getElementById('rankingModal').showModal();
+        }
+    });
+    </script>
+
+
 </body>
 </html>
