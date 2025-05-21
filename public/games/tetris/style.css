@@ -254,6 +254,72 @@ html, body {
 }
 
 
+/* Botón de ranking */
+.btn-ranking {
+  background-color: var(--color-accent, orange);
+  color: black;
+  border: 2px solid var(--color-accent, orange);
+  padding: 0.5rem 1rem;
+  font-family: 'Press Start 2P', cursive;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-left: 1rem;
+}
+
+.btn-ranking:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Modal estilo arcade */
+#rankingModal {
+  border: 3px solid var(--color-accent, orange);
+  border-radius: 12px;
+  padding: 2rem;
+  background-color: #1a1d2f;
+  color: white;
+  font-family: Arial, sans-serif;
+  max-width: 90%;
+  width: 500px;
+  line-height: 1.6;
+  white-space: pre-line;
+
+  p{
+    margin-bottom: 1rem;
+  }
+}
+
+.ranking-modal-title {
+  color: var(--color-accent, orange);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.btn-ranking-close {
+  margin-top: 1rem;
+  background-color: #333;
+  color: white;
+  border: 2px solid var(--color-accent, orange);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.btn-ranking-close:hover {
+  background-color: var(--color-accent, orange);
+  color: black;
+}
+
+.btn-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18px;
+}
+
 
 /* scrollbar personalizada con scrollbar.app */
 

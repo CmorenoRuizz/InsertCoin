@@ -65,4 +65,86 @@ router.post('/guardar-puntuacion', (req, res) => {
   });
 });
 
+
+// Obtener ranking personalizado en cada juego
+router.get('/ranking/posicion/:juego', (req, res) => {
+  if (!req.session.user) return res.status(401).json({ error: 'No autorizado' });
+
+  const juego = req.params.juego;
+  const userId = req.session.user.id;
+
+  // Obtener el ranking completo ordenado
+  const sql = `
+    SELECT u.username, p.user_id, MAX(p.puntuacion) AS puntuacion
+    FROM puntuaciones p
+    JOIN usuarios u ON u.id = p.user_id
+    WHERE p.juego = ?
+    GROUP BY p.user_id
+    ORDER BY puntuacion DESC
+  `;
+
+  db.query(sql, [juego], (err, resultados) => {
+    if (err) return res.status(500).json({ error: 'Error en la BD' });
+
+    // Buscar posición del usuario logeado
+    const posicion = resultados.findIndex(r => r.user_id === userId);
+
+    if (posicion === -1) {
+      return res.json({
+        posicion: null,
+        mensaje: "No tienes puntuación registrada aún en este juego"
+      });
+    }
+
+    const datos = {
+      posicion: posicion + 1,
+      usuario: resultados[posicion].username,
+      puntuacion: resultados[posicion].puntuacion,
+      top1: resultados[0],
+      anterior: posicion > 0 ? resultados[posicion - 1] : null
+    };
+
+    res.json(datos);
+  });
+});
+
+
+// Para usuario
+router.get('/ranking-info/:juego', (req, res) => {
+  if (!req.session.user) return res.status(401).json({ error: 'No autorizado' });
+
+  const userId = req.session.user.id;
+  const juego = req.params.juego;
+
+  const sql = `
+    SELECT u.username, p.puntuacion, u.id AS userId
+    FROM puntuaciones p
+    JOIN usuarios u ON u.id = p.user_id
+    WHERE p.juego = ?
+    ORDER BY p.puntuacion DESC
+  `;
+
+  db.query(sql, [juego], (err, resultados) => {
+    if (err) return res.status(500).json({ error: 'Error en BD' });
+
+    const posicion = resultados.findIndex(row => row.userId === userId);
+    if (posicion === -1) {
+      return res.json({ posicion: null, puntuacion: null });
+    }
+
+    const yo = resultados[posicion];
+    const anterior = posicion > 0 ? resultados[posicion - 1] : null;
+    const primero = resultados[0];
+
+    res.json({
+      posicion: posicion + 1,
+      miPuntuacion: yo.puntuacion,
+      anterior: anterior ? { username: anterior.username, puntuacion: anterior.puntuacion } : null,
+      primero: { username: primero.username, puntuacion: primero.puntuacion }
+    });
+  });
+});
+
+
+
 module.exports = router;
