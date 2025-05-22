@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const contraseña = '1234'; // Aquí la contraseña en texto plano
 
