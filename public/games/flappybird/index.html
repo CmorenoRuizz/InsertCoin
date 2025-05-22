@@ -44,19 +44,26 @@
         const text = document.getElementById('rankingInfoText');
 
         if (data.posicion === null) {
-            text.textContent = 'Aún no tienes puntuación registrada para este juego.';
+            text.innerHTML = `<p>Aún no tienes puntuación registrada para este juego.</p>`;
         } else if (data.posicion === 1) {
-            text.textContent = `🏆 ¡Eres el número 1 en el ranking con ${data.miPuntuacion} puntos!`;
+            text.innerHTML = `<p>🏆 ¡Eres el número 1 en el ranking con ${data.miPuntuacion} puntos!</p>`;
         } else if (data.posicion === 2 && data.anterior) {
-            text.textContent = `🥈 Solo tienes delante a ${data.anterior.username} con ${data.anterior.puntuacion} puntos.\nTu puntuación es ${data.miPuntuacion}.`;
+            text.innerHTML = `
+            <p>🥈 Solo tienes delante a ${data.anterior.username} con ${data.anterior.puntuacion} puntos.</p>
+            <p>Tu puntuación es ${data.miPuntuacion}.</p>
+            `;
         } else {
-            text.textContent = `📈 Tu puntuación es ${data.miPuntuacion} puntos.\n👤 Delante tienes a ${data.anterior.username} con ${data.anterior.puntuacion} puntos.\n🏆 El número 1 es ${data.primero.username} con ${data.primero.puntuacion} puntos.`;
+            text.innerHTML = `
+            <p>📝 Tu puntuación es ${data.miPuntuacion} puntos.</p>
+            <p>👤 Delante tienes a ${data.anterior.username} con ${data.anterior.puntuacion} puntos.</p>
+            <p>🏆 El número 1 es ${data.primero.username} con ${data.primero.puntuacion} puntos.</p>
+            `;
         }
 
         document.getElementById('rankingModal').showModal();
         } catch (error) {
         console.error('Error al obtener ranking:', error);
-        document.getElementById('rankingInfoText').textContent = 'Error al obtener datos del ranking.';
+        document.getElementById('rankingInfoText').innerHTML = `<p>Error al obtener datos del ranking.</p>`;
         document.getElementById('rankingModal').showModal();
         }
     });
