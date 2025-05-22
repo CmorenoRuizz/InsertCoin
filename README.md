@@ -2,6 +2,12 @@
   <img src="https://raw.githubusercontent.com/CmorenoRuizz/InsertCoin/main/public/images/logo.png" alt="InsertCoin Logo" width="250"/>
 </p>
 
+<p align="center">
+  <a href="https://insertcoin.up.railway.app" target="_blank">
+    <img src="https://img.shields.io/badge/🚀 Ver%20demo%20online-Railway-purple?style=for-the-badge&logo=railway" alt="Ver en Railway">
+  </a>
+</p>
+
 # InsertCoin 🎮
 
 Bienvenido a **InsertCoin**, tu salón arcade web con minijuegos, ranking de puntuaciones y chats en tiempo real.
@@ -35,13 +41,14 @@ Bienvenido a **InsertCoin**, tu salón arcade web con minijuegos, ranking de pun
 
 1. Clonar el repositorio:
    
+   ```bash
    git clone https://github.com/CmorenoRuizz/InsertCoin.git
    
-2. Instalar las dependencias si fuese necesario:
+2. Instalar las dependencias:
    
    npm install
    
-3. Configurar la base de datos MySQL según las instrucciones del proyecto.
+3. Importar la base de datos (debes pedírmela por privado) y crea un archivo .env siguiendo el archivo de ejemplo.
 
 4. Ejecutar el servidor:
 
