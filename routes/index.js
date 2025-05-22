@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../config/db');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // router.get('/', (req, res) => {
 //   db.query('SELECT * FROM usuarios', (err, resultados) => {
