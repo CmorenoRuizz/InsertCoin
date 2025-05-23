@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://insertcoin.up.railway.app" target="_blank">
-    <img src="https://img.shields.io/badge/🚀 Ver%20demo%20online-Railway-purple?style=for-the-badge&logo=railway" alt="Ver en Railway">
+    <img src="https://img.shields.io/badge/Visitar%20despliegue%20online-Railway-purple?style=for-the-badge&logo=railway" alt="Ver en Railway">
   </a>
 </p>
 
